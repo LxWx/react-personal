@@ -1,5 +1,5 @@
 module.exports = {
     api: {
-        getList: '/local/data'
+        getList: '/mock/local/data'
     }
 };

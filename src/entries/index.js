@@ -1,7 +1,7 @@
-import React, { Component } from 'react';
+import React from 'react';
 import ReactDom from 'react-dom';
 import Routes from '../routes/Routes.jsx';
-
+import 'resources/style/base.less'
 let render = () => {
     document.title = 'scy-webpack-react-antd';
     let root = document.getElementById('root');

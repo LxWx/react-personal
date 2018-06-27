@@ -1,4 +1,4 @@
-import view from './views/Index';
+import view from 'bundle-loader?lazy!./views/Index';
 
 module.exports = {
     routeList: [{
@@ -8,17 +8,17 @@ module.exports = {
     menuList: [{
         name: 'nav2',
         key: 'nav2/key',
-        iconFont: '',
+        iconFont: 'user',
         isMenu: true,
         children: [{
             name: 'children1',
             key: 'nav2/key/children1',
-            iconFont: '',
+            iconFont: 'user',
             isMenu: true,
             children: [{
                 name: 'minSub',
                 key: '/nav2',
-                iconFont: '',
+                iconFont: 'user',
                 isMenu: true,
             }]
         }]

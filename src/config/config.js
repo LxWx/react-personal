@@ -1,5 +1,5 @@
 import {mergeConfig} from '../utils/index';
-import nav1 from '../containers/nav1/index';
+import nav1 from '../containers/DashBoard/index';
 import nav2 from '../containers/nav2/index';
 
 let configs = [

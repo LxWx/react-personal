@@ -5,7 +5,8 @@ let vendorConfig = {
         'react-dom',
         'react-router',
         'react-router-dom',
-        'lodash'
+        'lodash',
+        'echarts'
     ],
     antd: ['antd']
 }

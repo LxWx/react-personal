@@ -10,10 +10,15 @@ const ENTRY_PATH = './src/entries'; // 入口目录
 const APP_PATH = ROOT_PATH + '/src';
 const ExtractTextPlugin = require('extract-text-webpack-plugin'); // 样式分离
 const AddAssetHtmlPlugin = require('add-asset-html-webpack-plugin');
-
+const CopyWebpackPlugin = require('copy-webpack-plugin');
 // 分离第三方模块
 
 const vendorConfig = require(APP_PATH + '/config/vendorConfig.js') || {};
+
+const lessToJs = require('less-vars-to-js');
+
+const themer = lessToJs(fs.readFileSync(path.join(APP_PATH, './resources/style/theme.less'), 'utf8'));
+console.log(themer, 'themer')
 
 module.exports = {
     // 入口
@@ -44,7 +49,7 @@ module.exports = {
             filename: 'index.html',
             template: ENTRY_PATH + '/index.html',
             hash: true
-        })  
+        })
     ].concat(
         // 插入dll
         Object.keys(vendorConfig).map(function (name) {
@@ -93,16 +98,33 @@ module.exports = {
             },
             mangle: true  // 变量名压缩
         }),
-        new webpack.optimize.AggressiveMergingPlugin()
+        new webpack.optimize.AggressiveMergingPlugin(),
+        new CopyWebpackPlugin([
+            {   
+                context: APP_PATH,
+                from: 'resources/fonts',
+                to: 'resources/fonts'
+            },
+            {   
+                context: APP_PATH,
+                from: 'resources/images',
+                to: 'resources/images'
+            },
+            {   
+                context: APP_PATH,
+                from: 'resources/js/lib',
+                ignore: [ '*.json' ]  // 忽略文件
+            },
+        ])
     ),
     module: {
         rules: [{
-                test: /\.(jsx|js)$/,
-                exclude: /node_modules/,
-                use: {
-                    loader: 'babel-loader'
-                }
+            test: /\.(jsx|js)$/,
+            exclude: /node_modules/,
+            use: {
+                loader: 'babel-loader'
             }
+        }
             /*, {
                         test: /\.js[x]?$/,
                         exclude: /node_modules/,
@@ -112,54 +134,58 @@ module.exports = {
                         }
                     }*/
             , {
-                test: /\.css$/,
-                use: ExtractTextPlugin.extract({
-                    fallback: 'style-loader',
-                    use: [{
-                        loader: 'css-loader',
-                        options: {
-                            minimize: false,
-                            include: [
-                                APP_PATH
-                            ]
-                        }
-                    }]
-                })
-            }, {
-                test: /\.less$/,
-                exclude: path.resolve(__dirname, './node_modules'),
-                use: ExtractTextPlugin.extract({
-                    fallback: 'style-loader',
-                    use: [{
-                        loader: 'css-loader',
-                        options: {
-                            minimize: false,
-                            modules: true,
-                            localIdentName: '[name]_[local]_[hash:base64:5]'
-                        }
-                    }, {
-                        loader: 'less-loader'
-                    }]
-                })
-            },
-            {
-                test: /\.less$/,
-                include: path.resolve(__dirname, './node_modules'),
-                use: ExtractTextPlugin.extract({
-                    fallback: 'style-loader',
-                    use: [{
-                        loader: 'css-loader'
-                    }, {
-                        loader: 'less-loader'
-                    }]
-                })
-            }, {
-                test: /\.(png|svg|jpg|gif)$/,
-                exclude: /node_modules/,
-                use: [
-                    'file-loader'
-                ]
-            }
+            test: /\.css$/,
+            use: ExtractTextPlugin.extract({
+                fallback: 'style-loader',
+                use: [{
+                    loader: 'css-loader',
+                    options: {
+                        minimize: false,
+                        include: [
+                            APP_PATH
+                        ]
+                    }
+                }]
+            })
+        }, {
+            test: /\.less$/,
+            exclude: path.resolve(__dirname, './node_modules'),
+            use: ExtractTextPlugin.extract({
+                fallback: 'style-loader',
+                use: [{
+                    loader: 'css-loader',
+                    options: {
+                        minimize: false,
+                        modules: true,
+                        localIdentName: '[name]_[local]_[hash:base64:5]'
+                    }
+                }, {
+                    loader: 'less-loader'
+                }]
+            })
+        },
+        {
+            test: /\.less$/,
+            include: path.resolve(__dirname, './node_modules'),
+            use: ExtractTextPlugin.extract({
+                fallback: 'style-loader',
+                use: [{
+                    loader: 'css-loader'
+                }, {
+                    loader: 'less-loader',
+                    options: {
+                        sourceMap: true,
+                        modifyVars:themer
+                    }  
+                }]
+            })
+        }, {
+            test: /\.(png|svg|jpg|gif)$/,
+            exclude: /node_modules/,
+            use: [
+                'file-loader'
+            ]
+        }
         ]
     }
 

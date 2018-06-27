@@ -1,5 +1,5 @@
 import axios from 'axios';
-import lodash from 'lodash';
+import {CloneDeep} from 'common';
 import pathToRegexp from 'path-to-regexp';
 
 const encodeParam = (data = {}) => {
@@ -18,7 +18,7 @@ const fetch = (options) => {
         data,
         url
     } = options;
-    const cloneData = lodash.cloneDeep(data);
+    const cloneData = CloneDeep(data);
     try {
         let domin = '';
         if (url.match(/[a-zA-z]+:\/\/[^/]*/)) {

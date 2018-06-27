@@ -8,6 +8,12 @@ module.exports = {
         //host: '0.0.0.0',
         port: 8080, //端口号
         proxy: {
+            
+            '/mock/*': {
+                target: 'http://127.0.0.1:3000',
+                secure: true,
+                changeOrigin: true
+            },
             '/local/*': {
                 target: 'http://127.0.0.1:3000',
                 secure: true,

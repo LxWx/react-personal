@@ -2,13 +2,14 @@
  *  webpack通用配置项
  * */
 const path = require('path'); // 引入node 路径模块
+const fs = require('fs'); 
 const webpack = require('webpack'); // 加载webpack
 const CleanWebpackPlugin = require('clean-webpack-plugin'); // 清楚缓存插件
 const HtmlWebpackPlugin = require('html-webpack-plugin'); // 自动生成index.html
 const ROOT_PATH = path.resolve(__dirname); // 根目录
 const ENTRY_PATH = './src/entries'; // 入口目录
 const APP_PATH = ROOT_PATH + '/src';
-
+const config =  require(APP_PATH + '/config/config.dev.js') || {};
 const HappyPack = require('happypack'); //happypack 优化
 const os = require('os') //node 系统模块
 const HappyThreadPool = HappyPack.ThreadPool({ size: os.cpus().length }); // 启动线程池});
@@ -19,10 +20,18 @@ const BundleAnalyzerPlugin = require('webpack-bundle-analyzer').BundleAnalyzerPl
 
 const AddAssetHtmlPlugin = require('add-asset-html-webpack-plugin');
 
+const OpenBrowserPlugin = require('open-browser-webpack-plugin');
+
+const CopyWebpackPlugin = require('copy-webpack-plugin');
+
 // 分离第三方模块
 
 const vendorConfig = require(APP_PATH + '/config/vendorConfig.js') || {};
 
+const lessToJs = require('less-vars-to-js');
+
+const themer = lessToJs(fs.readFileSync(path.join(APP_PATH, './resources/style/theme.less'), 'utf8'));
+console.log(themer, 'themer')
 module.exports = {
     // 入口
     entry: {
@@ -71,9 +80,9 @@ module.exports = {
             name: 'common' // 指定公共 bundle 的名称。
         }),
         //自动加载模块
-        new webpack.ProvidePlugin({
-            $: 'jquery'
-        }),
+        // new webpack.ProvidePlugin({
+        //     $: 'jquery'
+        // }),
 
         // HappyPack优化
         new HappyPack({
@@ -82,13 +91,14 @@ module.exports = {
             threadPool: HappyThreadPool,
             loaders: ['babel-loader']
         }),
-        new BundleAnalyzerPlugin(),
+        // new BundleAnalyzerPlugin(),
         new ExtractTextPlugin("style.css", {
             allChunks: true
         }),
 
         // 通过模块调用次数给模块分配ids，常用的ids就会分配更短的id，使ids可预测，减小文件大小，推荐使用
-        new webpack.optimize.OccurrenceOrderPlugin()
+        new webpack.optimize.OccurrenceOrderPlugin(),
+        // new OpenBrowserPlugin({ url: `http://localhost:${config.proxy.port}` }), // 自动启动网页
 
         //定义全局变量
         // new webpack.DefinePlugin({
@@ -98,6 +108,24 @@ module.exports = {
         //     PRODUCTION: JSON.stringify(PRODUCTION),
         //     APP_CONFIG: JSON.stringify(appConfig[process.env.NODE_ENV]),
         // }),
+
+        new CopyWebpackPlugin([
+            {   
+                context: APP_PATH,
+                from: 'resources/fonts',
+                to: 'resources/fonts'
+            },
+            {   
+                context: APP_PATH,
+                from: 'resources/images',
+                to: 'resources/images'
+            },
+            {   
+                context: APP_PATH,
+                from: 'resources/js/lib',
+                ignore: [ '*.json' ]  // 忽略文件
+            },
+        ])
     ),
     module: {
         rules: [{
@@ -132,19 +160,17 @@ module.exports = {
             }, {
                 test: /\.less$/,
                 exclude: path.resolve(__dirname, './node_modules'),
-                use: ExtractTextPlugin.extract({
-                    fallback: 'style-loader',
-                    use: [{
-                        loader: 'css-loader',
-                        options: {
-                            minimize: false,
-                            modules: true,
-                            localIdentName: '[name]_[local]_[hash:base64:5]'
-                        }
-                    }, {
-                        loader: 'less-loader'
-                    }]
-                })
+                use: [{
+                    loader: "style-loader" // creates style nodes from JS strings
+                }, {
+                    loader: "css-loader", // translates CSS into CommonJS
+                    options: {
+                        modules: true,
+                        localIdentName: '[name]_[local]_[hash:base64:5]'
+                      }
+                }, {
+                    loader: "less-loader"// compiles Less to CSS
+                }]
             },
             {
                 test: /\.less$/,
@@ -154,7 +180,11 @@ module.exports = {
                     use: [{
                         loader: 'css-loader'
                     }, {
-                        loader: 'less-loader'
+                        loader: 'less-loader',
+                        options: {
+                            sourceMap: true,
+                            modifyVars:themer
+                        }                 
                     }]
                 })
             }, {
