@@ -1,5 +1,5 @@
 import React, {Component} from 'react';
-import {Layout, Menu, Icon} from 'antd';
+import {Layout, Menu, Icon, Button} from 'antd';
 import styles from './Main.less';
 import {config} from '../../config/config';
 import {History} from '../../utils';
@@ -28,8 +28,8 @@ class Main extends Component {
       }
     render() {
         let {openKeys, selectedKeys, collapsed} = this.state;
-        return (<Layout style={{minHeight: '100%'}}>
-            <Sider onCollapse={this.onCollapse} collapsible collapsed={collapsed} style={{overflow: 'auto', height: '100vh'}}>
+        return (<Layout style={{minHeight: '100%', overflowY: 'auto', height: '100%'}}>
+            <Sider onCollapse={this.onCollapse} collapsed={collapsed} style={{ overflow: 'auto', height: '100vh', position: 'fixed', left: 0 }}>
                 <div className='logo' style={{height: 32, background: 'rgba(255,255,255,.2)', margin: 16}}
                 
                 >
@@ -52,23 +52,23 @@ class Main extends Component {
                                     {
                                         subItem.children.map((item) => {
                                             if (item.children && item.children.length) {
-                                                return (<SubMenu key={item.key} title={<span><Icon type={item.iconFont} /><span>{item.name}</span></span>}>
+                                                return (item.isMenu && <SubMenu key={item.key} title={<span><Icon type={item.iconFont} /><span>{item.name}</span></span>}>
                                                     {
                                                         item.children.map((minItem) => {
                                                             return (
-                                                                <MenuItem key={minItem.key}><Icon type={minItem.iconFont} />{minItem.name}</MenuItem>
+                                                                minItem.isMenu && <MenuItem key={minItem.key}><Icon type={minItem.iconFont} />{minItem.name}</MenuItem>
                                                             );
                                                         })
                                                     }
                                                 </SubMenu>);
                                             } else {
-                                                return <MenuItem key={item.key}><Icon type={item.iconFont} />{item.name}</MenuItem>
+                                                return item.isMenu && <MenuItem key={item.key}><Icon type={item.iconFont} />{item.name}</MenuItem>
                                             }
                                         })
                                     }
                                 </SubMenu>);
                             } else {
-                                return <MenuItem key={subItem.key}>
+                                return subItem.isMenu && <MenuItem key={subItem.key}>
                                     <span><Icon type={subItem.iconFont} /><span>{subItem.name}</span></span>
                                 </MenuItem>
                             }
@@ -78,9 +78,20 @@ class Main extends Component {
                 </Menu>
             </Sider>
             <Layout>
-                <Header style={{background: '#fff', padding: 0}}>头部</Header>
-                <Content className={styles.content} style={{margin: '24px 16px 0', overflow: 'initial'}}>
-                    <div style={{padding: 24, background: '#fff', textAlign: 'center'}}>
+                <Header style={{background: '#fff', padding: 0, textAlign: 'right', paddingRight: 20}}>
+                    <Button className={styles.btn} size="small" type="primary">
+                        帮助
+                    </Button>
+                    <Button className={styles.btn} size="small" type="primary">
+                        提交工单
+                    </Button>
+                    <div className={styles.user}>
+                            xxxxxx
+                    </div>
+                
+                </Header>
+                <Content className={styles.content} style={{overflow: 'initial'}}>
+                    <div>
                         {this.props.children}
                     </div>
                 </Content>
@@ -120,7 +131,7 @@ class Main extends Component {
 
             } else {
                 urlObj[key] = {
-                    selectKey: [key],
+                    selectKey: [item.pid || key],
                     parentsKey: parentsKey
                 }
             }
@@ -133,7 +144,8 @@ class Main extends Component {
 
     setSelectAndOpenKeys = (location) => {
         let {urlKeys} = this.state;
-        let keyObj = urlKeys[location.pathname == '/' ? '/DashBoard' : location.pathname];
+        console.log(urlKeys, 'urlKeys')
+        let keyObj = urlKeys[location.pathname == '/' ? '/dashBoard' : location.pathname];
         this.setState({
             selectedKeys: keyObj.selectKey,
             openKeys: keyObj.parentsKey

@@ -1,0 +1,30 @@
+.main {
+    .ulMain {
+        .title {
+            height: 32px;
+            line-height: 32px;
+            background-color: #ccc;
+            text-align: left;
+            padding: 0 10px;
+        }
+        .ulChild {
+            width: 100%;
+            :global {
+                .ant-checkbox-group-item {
+                    display: flex;
+                    padding: 10px 0;
+                }
+                .ant-checkbox {
+                    top: 0.2em;
+                }
+            }
+        }
+        .labelMain {
+            display: flex;
+            >div{
+                padding: 0 10px;
+            }
+        }
+    }
+    
+}

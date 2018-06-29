@@ -81,11 +81,7 @@ module.exports = {
         new webpack.optimize.OccurrenceOrderPlugin(),
         //定义全局变量
         // new webpack.DefinePlugin({
-        //     'process.env': {
-        //         NODE_ENV: JSON.stringify(process.env.NODE_ENV)
-        //     },
-        //     PRODUCTION: JSON.stringify(PRODUCTION),
-        //     APP_CONFIG: JSON.stringify(appConfig[process.env.NODE_ENV]),
+        //     'process.env.NODE_ENV': JSON.stringify('production')
         // }),
 
         // 压缩
@@ -100,20 +96,20 @@ module.exports = {
         }),
         new webpack.optimize.AggressiveMergingPlugin(),
         new CopyWebpackPlugin([
-            {   
+            {
                 context: APP_PATH,
                 from: 'resources/fonts',
                 to: 'resources/fonts'
             },
-            {   
+            {
                 context: APP_PATH,
                 from: 'resources/images',
                 to: 'resources/images'
             },
-            {   
+            {
                 context: APP_PATH,
                 from: 'resources/js/lib',
-                ignore: [ '*.json' ]  // 忽略文件
+                ignore: ['*.json']  // 忽略文件
             },
         ])
     ),
@@ -145,6 +141,15 @@ module.exports = {
                             APP_PATH
                         ]
                     }
+                },
+                {
+                    loader: 'postcss-loader',
+                    options: {
+                        sourceMap: true,
+                        config: {
+                            path: 'postcss.config.js'  // 这个得在项目根目录创建此文件
+                        }
+                    }
                 }]
             })
         }, {
@@ -159,6 +164,15 @@ module.exports = {
                         modules: true,
                         localIdentName: '[name]_[local]_[hash:base64:5]'
                     }
+                },
+                {
+                    loader: 'postcss-loader',
+                    options: {
+                        sourceMap: true,
+                        config: {
+                            path: 'postcss.config.js'  // 这个得在项目根目录创建此文件
+                        }
+                    }
                 }, {
                     loader: 'less-loader'
                 }]
@@ -171,12 +185,21 @@ module.exports = {
                 fallback: 'style-loader',
                 use: [{
                     loader: 'css-loader'
+                },
+                {
+                    loader: 'postcss-loader',
+                    options: {
+                        sourceMap: true,
+                        config: {
+                            path: 'postcss.config.js'  // 这个得在项目根目录创建此文件
+                        }
+                    }
                 }, {
                     loader: 'less-loader',
                     options: {
                         sourceMap: true,
-                        modifyVars:themer
-                    }  
+                        modifyVars: themer
+                    }
                 }]
             })
         }, {

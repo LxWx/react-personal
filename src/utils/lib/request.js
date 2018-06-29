@@ -66,16 +66,19 @@ const fetch = (options) => {
 export default function request(options) {
     return fetch(options)
         .then((response) => {
+            console.log(response)
             const {
                 statusText,
                 status
             } = response;
             let jsonResult = response.jsonResult;
+            let data = response.data
             return {
                 success: true,
                 message: statusText,
                 statusCode: status,
                 jsonResult,
+                data,
                 ...jsonResult
             }
         })

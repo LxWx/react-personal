@@ -1,8 +1,13 @@
 import React from 'react';
-import {connect} from 'react-redux';
+import { connect } from 'react-redux';
 import * as Act from '../models/actions';
-import styles from './Index.less';   
-import {PureComponent, Charts} from 'components';
+import styles from './index.less';
+import { PureComponent, Charts } from 'components';
+import MyQueryTable from './myQueryTable';
+import MyQuery from './myQuery';
+import { Row, Col } from 'antd';
+// import update from 'immutability-helper';
+// import PropTypes from 'prop-types';
 // import {createTimer, clearTimer} from 'common';
 
 
@@ -10,66 +15,32 @@ class Home extends PureComponent {
     constructor(props) {
         super(props);
     }
-    getOption = () => ({
-        title: {
-            text: '3333'
-        },
-        tooltip: {},
-        legend: {
-            data: ['销量']
-        },
-        xAxis: {
-            data: ['衬衫', '羊毛衫', '雪纺衫', '裤子', '高跟鞋', '袜子']
-        },
-        yAxis: {},
-        series: [{
-            name: '销量',
-            type: 'bar',
-            data: [5, 20, 36, 10, 10, 20]
-        }]
-    }) 
     render() {
-        let {age} = this.props.nav1;
-        let onEvents = {
-            'click': () => {alert(1)}
-          }
         return (<div>
-            nav1<i className='iconfont icon-guanli'></i>
-            <div>年龄：{age}</div>
-            <p className={styles.aa}><a onClick={this.changeAge.bind(this, '+')}>增加 </a></p>
-            <p><a onClick={this.changeAge.bind(this, '-')}> 减少</a></p>
-            <Charts 
-                option={this.getOption()}
-                // onEvents={onEvents}
-            />
-        </div>)     
-    }
+            <Row gutter={20}>
+                <Col span={16}>
+                    <MyQueryTable
+                        title='我的查询'
+                    />
+                    <MyQueryTable
+                        title='查询模板'
+                    />
+                    <MyQueryTable
+                        title='我的定时任务'
+                    />
+                </Col>
+                <Col span={8}>
+                    <MyQuery />
+                </Col>
+            </Row>
 
-    changeAge = (type) => {
-        
-        // this.timer1 = createTimer(() => {
-        //     console.log(2)
-        // }, 1000)
-        
-        let {age} = this.props.nav1;
-        if (type == '+') {
-            // console.log(this.timer)
-            // clearTimer(this.timer)
-            this.props.dispatch(Act.addNumAct(++age));
-        } else {
-            // this.timer = createTimer(() => {
-            //     console.log(1)
-            // }, 1000)
-            // console.log(this.timer, this.timer1)
-            // this.props.dispatch(Act.addNumAct(--age));
-        }
-
+        </div>)
     }
 }
 
 const mapStateToProps = (state) => {
     return {
-        nav1: state.nav1
+        newData: state.DashBoard
     }
 };
 

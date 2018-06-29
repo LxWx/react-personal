@@ -50,3 +50,24 @@ mock 服务规则
 import isEqual from 'fast-deep-equal';  // 判断对象引用关系
 
 import PropTypes from 'prop-types';  // 属性判断
+
+import update from 'immutability-helper';
+
+immutability-helper 使用方法
+
+# 为什么要使用immutability-helper
+
+# 避免数据污染导致的数组混乱，减少render渲染，使数据是不可变的
+
+# 使用方法 https://www.npmjs.com/package/immutability-helper
+
+# 例子
+
+// array push
+const initialArray = [1, 2, 3];
+const newArray = update(initialArray, {$push: [4]}); // => [1, 2, 3, 4]
+
+// splice = arr.splice (index, len , add)
+const collection = [1, 2, {a: [12, 17, 15]}];
+const newCollection = update(collection, {2: {a: {$splice: [[1, 1, 13, 14]]}}});
+// => [1, 2, {a: [12, 13, 14, 15]}]

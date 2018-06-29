@@ -1,16 +1,16 @@
-import view from 'bundle-loader?lazy!./views/Index';
+import view from 'bundle-loader?lazy!./views/index';
 import * as action from './models/actions';
 import reducer from './models/reducer';
 import sagas from './models/sagas';
 
 module.exports = {
     routeList: [{
-        path: '/DashBoard',
+        path: '/dashBoard',
         comp: view
     }],
     menuList: [{
         name: 'DashBoard',
-        key: '/DashBoard',
+        key: '/dashBoard',
         iconFont: 'question-circle',
         isMenu: true,
         // children: [{
@@ -23,7 +23,7 @@ module.exports = {
     models: [{
         action,
         reducer: {
-            nav1: reducer
+            DashBoard: reducer
         },
         sagas
     }]

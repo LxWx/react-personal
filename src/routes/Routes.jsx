@@ -2,7 +2,7 @@ import React, {Component} from 'react';
 import {Router, Route, Switch} from 'react-router-dom';
 import {Provider} from 'react-redux';
 import store from '../store/store';
-import Home from '../containers/DashBoard/views/Index.jsx';
+import Home from '../containers/DashBoard/views/index.jsx';
 import Main from '../containers/layout/Main.jsx';
 import {History} from '../utils/index.js';
 import {config} from '../config/config';

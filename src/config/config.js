@@ -1,10 +1,14 @@
 import {mergeConfig} from '../utils/index';
-import nav1 from '../containers/DashBoard/index';
-import nav2 from '../containers/nav2/index';
+import DashBoard from '../containers/DashBoard/index';
+import Preference from '../containers/Preference/index';
+import Search from '../containers/Search/index';
+// import nav2 from '../containers/nav2/index';
 
 let configs = [
-    nav1,
-    nav2
+    DashBoard,
+    Preference,
+    Search
+    // nav2
 ];
 
 let mergedConfig = mergeConfig(configs);
