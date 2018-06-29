@@ -1,8 +1,8 @@
 import React from 'react';
 import { connect } from 'react-redux';
-import * as Act from '../models/actions';
-import styles from './index.less';
-import { PureComponent, Charts } from 'components';
+// import * as Act from '../models/actions';
+// import styles from './index.less';
+import { PureComponent, Charts, ToolTipText} from 'components';
 import MyQueryTable from './myQueryTable';
 import MyQuery from './myQuery';
 import { Row, Col } from 'antd';
@@ -16,7 +16,10 @@ class Home extends PureComponent {
         super(props);
     }
     render() {
-        return (<div>
+        return <div>
+            <div style={{width: 100}}>
+                <ToolTipText />
+            </div>
             <Row gutter={20}>
                 <Col span={16}>
                     <MyQueryTable
@@ -34,14 +37,14 @@ class Home extends PureComponent {
                 </Col>
             </Row>
 
-        </div>)
+        </div>;
     }
 }
 
 const mapStateToProps = (state) => {
     return {
         newData: state.DashBoard
-    }
+    };
 };
 
 export default connect(mapStateToProps)(Home);

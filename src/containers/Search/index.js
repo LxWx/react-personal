@@ -1,7 +1,7 @@
 import Arrays from './views/array/index';
-import QueryLog from './views/queryLog/index';
-import Schedules from './views/schedules/index';
-import Templates from './views/templates/index';
+// import QueryLog from './views/queryLog/index';
+// import Schedules from './views/schedules/index';
+// import Templates from './views/templates/index';
 import * as action from './models/actions';
 import reducer from './models/reducer';
 import sagas from './models/sagas';
@@ -10,9 +10,9 @@ module.exports = {
     routeList: [        
         
         ...Arrays.routeList,
-        ...QueryLog.routeList,
-        ...Templates.routeList,
-        ...Schedules.routeList
+        // ...QueryLog.routeList,
+        // ...Templates.routeList,
+        // ...Schedules.routeList
     ],
     menuList: [{
         name: 'Search',
@@ -21,9 +21,9 @@ module.exports = {
         isMenu: true,
         children: [
             ...Arrays.menuList,
-            ...Templates.menuList,
-            ...Schedules.menuList,
-            ...QueryLog.menuList,
+            // ...Templates.menuList,
+            // ...Schedules.menuList,
+            // ...QueryLog.menuList,
             
         ]
     }],
@@ -33,5 +33,7 @@ module.exports = {
             Preference: reducer
         },
         sagas
-    }].concat(Arrays.models, QueryLog.models, Templates.models, Schedules.models)
+    }].concat(Arrays.models, 
+        // QueryLog.models, Templates.models, Schedules.models
+    )
 };

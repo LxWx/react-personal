@@ -1,4 +1,4 @@
-import React, { Component } from "react";
+import React, { Component } from 'react';
 
 
 class Bundle extends Component {
@@ -10,12 +10,12 @@ class Bundle extends Component {
     }
 
     componentWillMount() {
-        this.load(this.props)
+        this.load(this.props);
     }
 
     componentWillReceiveProps(nextProps) {
         if (nextProps.load !== this.props.load) {
-            this.load(nextProps)
+            this.load(nextProps);
         }
     }
 
@@ -39,9 +39,9 @@ Bundle.create = (load) => {
         <Bundle load={load}>
             {(About) => <About {...props} />}
         </Bundle>
-    )
+    );
     return About;
-}
+};
 
 
-export default Bundle
+export default Bundle;

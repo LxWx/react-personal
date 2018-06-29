@@ -11,7 +11,7 @@ const ENTRY_PATH = './src/entries'; // 入口目录
 const APP_PATH = ROOT_PATH + '/src';
 const config = require(APP_PATH + '/config/config.dev.js') || {};
 const HappyPack = require('happypack'); //happypack 优化
-const os = require('os') //node 系统模块
+const os = require('os'); //node 系统模块
 const HappyThreadPool = HappyPack.ThreadPool({ size: os.cpus().length }); // 启动线程池});
 
 const ExtractTextPlugin = require('extract-text-webpack-plugin'); // 样式分离
@@ -71,9 +71,9 @@ module.exports = {
         new AddAssetHtmlPlugin(Object.keys(vendorConfig).map(function (name) {
             return {
                 filepath: require.resolve(path.resolve(`./src/resources/js/lib/${name}.js`)),
-                includeSourcemap: false,   // 默认是true.  当为true ， 插件会自动查找sourceMap文件
+                includeSourcemap: false, // 默认是true.  当为true ， 插件会自动查找sourceMap文件
                 hash: true
-            }
+            };
         })),
         new webpack.optimize.CommonsChunkPlugin({
             name: 'common' // 指定公共 bundle 的名称。
@@ -91,7 +91,7 @@ module.exports = {
             loaders: ['babel-loader']
         }),
         // new BundleAnalyzerPlugin(),
-        new ExtractTextPlugin("style.css", {
+        new ExtractTextPlugin('style.css', {
             allChunks: true
         }),
 
@@ -122,7 +122,7 @@ module.exports = {
             {
                 context: APP_PATH,
                 from: 'resources/js/lib',
-                ignore: ['*.json']  // 忽略文件
+                ignore: ['*.json'] // 忽略文件
             },
         ])
     ),
@@ -133,16 +133,15 @@ module.exports = {
             use: {
                 loader: 'happypack/loader?id=jsx'
             }
-        }
-            /*, {
-                        test: /\.js[x]?$/,
-                        exclude: /node_modules/,
-                        loader: 'eslint-loader',
-                        options: {
-                            quiet: true
-                        }
-                    }*/
-            , {
+        }, {
+            test: /\.js[x]?$/,
+            exclude: /node_modules/,
+            loader: 'eslint-loader',
+            options: {
+                quiet: true
+            }
+        },
+        {
             test: /\.css$/,
             use: ExtractTextPlugin.extract({
                 fallback: 'style-loader',
@@ -160,7 +159,7 @@ module.exports = {
                     options: {
                         sourceMap: true,
                         config: {
-                            path: 'postcss.config.js'  // 这个得在项目根目录创建此文件
+                            path: 'postcss.config.js' // 这个得在项目根目录创建此文件
                         }
                     }
                 }]
@@ -169,9 +168,9 @@ module.exports = {
             test: /\.less$/,
             exclude: path.resolve(__dirname, './node_modules'),
             use: [{
-                loader: "style-loader" // creates style nodes from JS strings
+                loader: 'style-loader' // creates style nodes from JS strings
             }, {
-                loader: "css-loader", // translates CSS into CommonJS
+                loader: 'css-loader', // translates CSS into CommonJS
                 options: {
                     modules: true,
                     localIdentName: '[name]_[local]_[hash:base64:5]'
@@ -182,12 +181,12 @@ module.exports = {
                 options: {
                     sourceMap: true,
                     config: {
-                        path: 'postcss.config.js'  // 这个得在项目根目录创建此文件
+                        path: 'postcss.config.js' // 这个得在项目根目录创建此文件
                     }
                 }
             },
             {
-                loader: "less-loader"// compiles Less to CSS
+                loader: 'less-loader'// compiles Less to CSS
             }]
         },
         {
@@ -203,7 +202,7 @@ module.exports = {
                     options: {
                         sourceMap: true,
                         config: {
-                            path: 'postcss.config.js'  // 这个得在项目根目录创建此文件
+                            path: 'postcss.config.js' // 这个得在项目根目录创建此文件
                         }
                     }
                 }, {

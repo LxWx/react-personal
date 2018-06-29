@@ -18,7 +18,7 @@ const vendorConfig = require(APP_PATH + '/config/vendorConfig.js') || {};
 const lessToJs = require('less-vars-to-js');
 
 const themer = lessToJs(fs.readFileSync(path.join(APP_PATH, './resources/style/theme.less'), 'utf8'));
-console.log(themer, 'themer')
+console.log(themer, 'themer');
 
 module.exports = {
     // 入口
@@ -63,9 +63,9 @@ module.exports = {
         new AddAssetHtmlPlugin(Object.keys(vendorConfig).map(function (name) {
             return {
                 filepath: require.resolve(path.resolve(`./src/resources/js/lib/${name}.js`)),
-                includeSourcemap: false,   // 默认是true.  当为true ， 插件会自动查找sourceMap文件
+                includeSourcemap: false, // 默认是true.  当为true ， 插件会自动查找sourceMap文件
                 hash: true
-            }
+            };
         })),
         new webpack.optimize.CommonsChunkPlugin({
             name: 'common' // 指定公共 bundle 的名称。
@@ -74,7 +74,7 @@ module.exports = {
         new webpack.ProvidePlugin({
             $: 'jquery'
         }),
-        new ExtractTextPlugin("style.css", {
+        new ExtractTextPlugin('style.css', {
             allChunks: true
         }),
         // 通过模块调用次数给模块分配ids，常用的ids就会分配更短的id，使ids可预测，减小文件大小，推荐使用
@@ -92,7 +92,7 @@ module.exports = {
                 drop_debugger: true,
                 drop_console: true
             },
-            mangle: true  // 变量名压缩
+            mangle: true // 变量名压缩
         }),
         new webpack.optimize.AggressiveMergingPlugin(),
         new CopyWebpackPlugin([
@@ -109,7 +109,7 @@ module.exports = {
             {
                 context: APP_PATH,
                 from: 'resources/js/lib',
-                ignore: ['*.json']  // 忽略文件
+                ignore: ['*.json'] // 忽略文件
             },
         ])
     ),
@@ -120,16 +120,16 @@ module.exports = {
             use: {
                 loader: 'babel-loader'
             }
-        }
-            /*, {
-                        test: /\.js[x]?$/,
-                        exclude: /node_modules/,
-                        loader: 'eslint-loader',
-                        options: {
-                            quiet: true
-                        }
-                    }*/
-            , {
+        },
+        /*, {
+                    test: /\.js[x]?$/,
+                    exclude: /node_modules/,
+                    loader: 'eslint-loader',
+                    options: {
+                        quiet: true
+                    }
+                }*/
+        {
             test: /\.css$/,
             use: ExtractTextPlugin.extract({
                 fallback: 'style-loader',
@@ -147,7 +147,7 @@ module.exports = {
                     options: {
                         sourceMap: true,
                         config: {
-                            path: 'postcss.config.js'  // 这个得在项目根目录创建此文件
+                            path: 'postcss.config.js' // 这个得在项目根目录创建此文件
                         }
                     }
                 }]
@@ -170,7 +170,7 @@ module.exports = {
                     options: {
                         sourceMap: true,
                         config: {
-                            path: 'postcss.config.js'  // 这个得在项目根目录创建此文件
+                            path: 'postcss.config.js' // 这个得在项目根目录创建此文件
                         }
                     }
                 }, {
@@ -191,7 +191,7 @@ module.exports = {
                     options: {
                         sourceMap: true,
                         config: {
-                            path: 'postcss.config.js'  // 这个得在项目根目录创建此文件
+                            path: 'postcss.config.js' // 这个得在项目根目录创建此文件
                         }
                     }
                 }, {

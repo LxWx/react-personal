@@ -4,5 +4,5 @@ export default class Component extends PureComponent {
     constructor (props) {
         super (props);
         autoBind(this);
-    } 
+    }
 }

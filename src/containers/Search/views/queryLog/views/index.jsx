@@ -15,21 +15,21 @@ class QueryLog extends PureComponent {
                 <Table />
                 <Table />
             </div>
-        )
+        );
     }
 }
 
 QueryLog.propTypes = {
 
-}
+};
 QueryLog.defaultProps = {
 
-}
+};
 
 const mapStateToProps = (state) => {
     return {
         newData: state.DashBoard
-    }
+    };
 };
 
 export default connect(mapStateToProps)(QueryLog);

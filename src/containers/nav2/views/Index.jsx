@@ -8,7 +8,7 @@ class Home extends Component {
     render() {
         return (<div>
             nav2<i className='iconfont icon-luyoubiao'></i>
-        </div>)
+        </div>);
     }
 }
 

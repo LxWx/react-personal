@@ -12,21 +12,21 @@ class Add extends PureComponent {
             <div className={styles.main}>
                 11111
             </div>
-        )
+        );
     }
 }
 
 Add.propTypes = {
 
-}
+};
 Add.defaultProps = {
-    
-}
+
+};
 
 const mapStateToProps = (state) => {
     return {
         newData: state.DashBoard
-    }
+    };
 };
 
 export default connect(mapStateToProps)(Add);

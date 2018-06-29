@@ -8,12 +8,12 @@ let mergeConfig = (configs = []) => {
             routeList: routeList.concat(currentValue.routeList),
             menuList: menuList.concat(currentValue.menuList),
             models: currentValue.models ? models.concat(currentValue.models) : models
-        }
+        };
     }, {
         routeList: [],
         menuList: [],
         models: []
-    })
+    });
 };
 
 module.exports = {

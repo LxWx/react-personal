@@ -9,6 +9,6 @@ let vendorConfig = {
         'echarts'
     ],
     antd: ['antd']
-}
+};
 
 module.exports = vendorConfig;

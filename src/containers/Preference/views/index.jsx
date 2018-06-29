@@ -17,16 +17,16 @@ class Home extends PureComponent {
     }
     render() {
         return (<div>
-            
 
-        </div>)
+
+        </div>);
     }
 }
 
 const mapStateToProps = (state) => {
     return {
         newData: state.DashBoard
-    }
+    };
 };
 
 export default connect(mapStateToProps)(Home);

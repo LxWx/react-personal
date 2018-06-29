@@ -44,35 +44,35 @@ const fetch = (options) => {
         }).post(url, encodeParam(cloneData));
     }
     switch (method.toLowerCase()) {
-        case 'get':
-            return axios.get(url, {
-                params: cloneData
-            });
-        case 'delete':
-            return axios.delete(url, {
-                data: cloneData
-            });
-        case 'post':
-            return axios.post(url, cloneData);
-        case 'put':
-            return axios.put(url, cloneData);
-        case 'patch':
-            return axios.patch(url, cloneData);
-        default:
-            return axios(options);
+    case 'get':
+        return axios.get(url, {
+            params: cloneData
+        });
+    case 'delete':
+        return axios.delete(url, {
+            data: cloneData
+        });
+    case 'post':
+        return axios.post(url, cloneData);
+    case 'put':
+        return axios.put(url, cloneData);
+    case 'patch':
+        return axios.patch(url, cloneData);
+    default:
+        return axios(options);
     }
 };
 
 export default function request(options) {
     return fetch(options)
         .then((response) => {
-            console.log(response)
+            console.log(response);
             const {
                 statusText,
                 status
             } = response;
             let jsonResult = response.jsonResult;
-            let data = response.data
+            let data = response.data;
             return {
                 success: true,
                 message: statusText,
@@ -80,7 +80,7 @@ export default function request(options) {
                 jsonResult,
                 data,
                 ...jsonResult
-            }
+            };
         })
         .catch((error) => {
             const {response} = error;
@@ -99,6 +99,6 @@ export default function request(options) {
                 statusCode,
                 msg,
                 code: 1
-            }
-        })
+            };
+        });
 }

@@ -6,6 +6,7 @@ import styles from './index.less';
 import Query from './query';
 import { Input } from 'antd';
 const Search = Input.Search;
+
 class MyQuery extends PureComponent {
     constructor(props) {
         super(props);
@@ -29,14 +30,14 @@ class MyQuery extends PureComponent {
                     <Query />
                 </div>
             </div>
-        )
+        );
     }
 }
 
 MyQuery.propTypes = {
 
-}
+};
 MyQuery.defaultProps = {
 
-}
+};
 export default MyQuery;

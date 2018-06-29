@@ -1,6 +1,6 @@
 import React, {Component} from 'react';
 import ReactEcharts from 'echarts-for-react';
-import isEqual from 'fast-deep-equal'; 
+import isEqual from 'fast-deep-equal';
 
 export default class barCharts extends Component {
     constructor(props) {
@@ -14,8 +14,8 @@ export default class barCharts extends Component {
             return true;
         }
     }
-    
-    
+
+
     render() {
         let {option, style, className, onEvents, loadingOption, showLoading, opts, notMerge, lazyUpdate, theme, onChartReady, shouldSetOption} = this.props;
         return (<ReactEcharts
@@ -23,7 +23,7 @@ export default class barCharts extends Component {
             style={style}
             opts={this.props.opts}
             className={className}
-            loadingOption={loadingOption} 
+            loadingOption={loadingOption}
             onEvents={onEvents}
             showLoading={showLoading}
             notMerge={notMerge}
@@ -31,7 +31,7 @@ export default class barCharts extends Component {
             theme={theme}
             onChartReady={onChartReady}
             shouldSetOption={shouldSetOption}
-            />)
+        />);
     }
 }
 
@@ -110,7 +110,7 @@ barCharts.defaultProps = {
     onEvents: {},
     opts: {},
     shouldSetOption: () => true,
-  };
+};
 
 // {
 //     option (required, object)   配置项

@@ -9,8 +9,8 @@ let extractReducer = (configs = []) => {
             ...reducer,
             ...previousValue
 
-        }
-    }, {})
+        };
+    }, {});
 };
 let reducer = extractReducer(models);
 reducer = Object.assign({}, reducer, CommonStore);

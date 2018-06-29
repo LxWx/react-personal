@@ -15,20 +15,20 @@ class Schedules extends PureComponent {
                 <Table />
                 <Table />
             </div>
-        )
+        );
     }
 }
 
 Schedules.propTypes = {
 
-}
+};
 Schedules.defaultProps = {
-}
+};
 
 const mapStateToProps = (state) => {
     return {
         newData: state.DashBoard
-    }
+    };
 };
 
 export default connect(mapStateToProps)(Schedules);

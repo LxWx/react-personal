@@ -6,5 +6,5 @@ export async function addNum() {
         url: api.getList,
         method: 'post',
         data: {}
-    })
+    });
 }

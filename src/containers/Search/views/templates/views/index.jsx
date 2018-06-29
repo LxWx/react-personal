@@ -15,21 +15,21 @@ class Templates extends PureComponent {
                 <Table />
                 <Table />
             </div>
-        )
+        );
     }
 }
 
 Templates.propTypes = {
 
-}
+};
 Templates.defaultProps = {
 
-}
+};
 
 const mapStateToProps = (state) => {
     return {
         newData: state.DashBoard
-    }
+    };
 };
 
 export default connect(mapStateToProps)(Templates);

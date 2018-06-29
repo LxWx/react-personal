@@ -2,7 +2,7 @@ import React from 'react';
 import { connect } from 'react-redux';
 // import * as Act from '../../models/actions';
 import styles from './index.less';
-import { PureComponent, Charts } from 'components';
+import { PureComponent, Charts} from 'components';
 import { Row, Col, Checkbox } from 'antd';
 // import update from 'immutability-helper';
 // import PropTypes from 'prop-types';
@@ -30,7 +30,7 @@ class PreferenceCharts extends PureComponent {
                 <Charts />,
                 <Charts />
             ]
-        }
+        };
     }
     onChange(checkedValues) {
         console.log('checked = ', checkedValues);
@@ -46,7 +46,7 @@ class PreferenceCharts extends PureComponent {
                         <div className={styles.chartContent}>
                             {
                                 this.state.data.map(it => {
-                                    return it
+                                    return it;
                                 })
                             }
                         </div>
@@ -56,6 +56,7 @@ class PreferenceCharts extends PureComponent {
 
                         <div className={styles.ulMain}>
                             <div className={styles.title}>
+
                                 我的图表
                             </div>
                             <div className={styles.ulChild}>
@@ -67,21 +68,21 @@ class PreferenceCharts extends PureComponent {
                 </Row>
 
             </div>
-        )
+        );
     }
 }
 
 PreferenceCharts.propTypes = {
 
-}
+};
 PreferenceCharts.defaultProps = {
 
-}
+};
 
 const mapStateToProps = (state) => {
     return {
         newData: state.DashBoard
-    }
+    };
 };
 
 export default connect(mapStateToProps)(PreferenceCharts);

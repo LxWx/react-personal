@@ -7,8 +7,7 @@ import reducer from './models/reducer';
 import sagas from './models/sagas';
 
 module.exports = {
-    routeList: [        
-        
+    routeList: [
         ...Charts.routeList,
         ...QueryLog.routeList,
         ...Templates.routeList,
@@ -24,7 +23,7 @@ module.exports = {
             ...Templates.menuList,
             ...Schedules.menuList,
             ...QueryLog.menuList,
-            
+
         ]
     }],
     models: [{

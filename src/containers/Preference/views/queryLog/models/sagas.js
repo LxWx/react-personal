@@ -16,5 +16,5 @@ function* _fetchUser(action) {
 export default function* root() {
     yield [
         fetchUser()
-    ]
+    ];
 }

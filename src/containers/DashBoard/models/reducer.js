@@ -10,11 +10,12 @@ let initState = {
 
 export default function nav1Reducer(state = initState, action) {
     let newState = CloneDeep(state);
+
     switch (action.type) {
-        case Act.ADDNUM:
-            newState = Object.assign({}, state, {age: action.data});
-            return newState;
-        default:
-            return state
+    case Act.ADDNUM:
+        newState = Object.assign({}, state, {age: action.data});
+        return newState;
+    default:
+        return state;
     }
 }

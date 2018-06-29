@@ -39,7 +39,7 @@ class WebSocketClient {
             }
 
             console.log(this.url + '连接成功');
-        }
+        };
 
         this.socket.onclose = (e) => { // 实例对象的onclose属性，用于指定连接关闭后的回调函数。
             this.connected = false; // 连接失败
@@ -52,18 +52,18 @@ class WebSocketClient {
             if (!this.accClose) { // 若非手动关闭，  自动重连
                 this.connect();
             }
-        }
+        };
 
         this.socket.onerror = (e) => { // 监听连接错误
             this.connected = false;
             console.log(this.url + '连接错误');
-        }
+        };
 
         this.socket.onmessage = (e) => { // 实例对象的onmessage属性，用于指定收到服务器数据后的回调函数。
             if (this.onMessage) { // 监听成功回调
                 this.onMessage(e.data);
             }
-        }
+        };
     }
 
 
@@ -108,7 +108,6 @@ class WebSocketClient {
 export default WebSocketClient;
 
 
-
 // 用法
 
 // this.ws = new WebSocketClient(url, room);
@@ -124,7 +123,7 @@ export default WebSocketClient;
 
 // this.ws.onMessage = (msg) => {
 
-// } 
+// }
 
 // this.ws.close = () => {
 

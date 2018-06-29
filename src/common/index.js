@@ -1,5 +1,5 @@
 import { call } from 'redux-saga/effects';
-const cloneDeep = require('lodash/cloneDeep')
+const cloneDeep = require('lodash/cloneDeep');
 
 // saga请求封装
 export function* callFetch(fetch, params) {
@@ -7,7 +7,7 @@ export function* callFetch(fetch, params) {
 }
 // clone
 export function CloneDeep(obj) {
-    return cloneDeep(obj)
+    return cloneDeep(obj);
 }
 
 
@@ -31,13 +31,13 @@ export function CloneDeep(obj) {
 //     }
 //     let _id  =  window.requestAnimationFrame(loop);
 //     console.log(_id)
-//     function loop(timestamp) {       
+//     function loop(timestamp) {
 //         if (stime == null) {
 //             stime = timestamp;
 //         }
 //         etime = timestamp;
 //         window.requestAnimationFrame(loop);
-        
+
 //         if (etime - stime >= time) {
 //             stime = null;
 //             etime = null;
@@ -61,6 +61,5 @@ export function CloneDeep(obj) {
 //         window.cancelAnimationFrame(id);
 
 // }
-
 
 

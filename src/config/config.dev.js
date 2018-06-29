@@ -4,11 +4,11 @@ module.exports = {
         contentBase: './', // 本地服务器在哪个目录搭建页面
         hot: true,
         inline: true, //用来支持dev-server自动刷新的配置
-        progress: true,  // 显示打包进度
+        progress: true, // 显示打包进度
         //host: '0.0.0.0',
         port: 8080, //端口号
         proxy: {
-            
+
             '/mock/*': {
                 target: 'http://127.0.0.1:3000',
                 secure: true,
