@@ -1,5 +1,5 @@
 {
-    "name": "start",
+    "name": "react-personal",
     "version": "1.0.0",
     "description": "",
     "main": "index.js",
@@ -17,8 +17,8 @@
         "mock": "node src/mock/mockServer.js",
         "vendors": "webpack --config webpack.dll.js --progress --colors --display-modules"
     },
-    "author": "",
-    "license": "ISC",
+    "author": "LxWx",
+    "license": "MIT",
     "dependencies": {
         "antd": "^3.6.4",
         "axios": "^0.17.1",
