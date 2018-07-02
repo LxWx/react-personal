@@ -3,8 +3,6 @@ import StoreRedux from './store-redux';
 
 // 公共reducer
 let reducer = {
-    StoreRedux
+    commonStore: StoreRedux
 };
-export default combineReducers({
-    ...reducer
-});
+export default reducer;

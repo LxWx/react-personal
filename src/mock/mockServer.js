@@ -1,4 +1,4 @@
-const obj = require('./db');  //   本地mock数据缓存
+const obj = require('./db'); //   本地mock数据缓存
 const route = require('./route');
 const jsonServer = require('json-server');
 const server = jsonServer.create();
@@ -14,7 +14,7 @@ server.use((request, res, next) => {
 server.use(middlewares);
 server.use(router);
 server.listen(3000, () => {
-    console.log('JSON Server is running')
+    console.log('JSON Server is running');
 });
 
 // https://github.com/nuysoft/Mock/wiki/Syntax-Specification

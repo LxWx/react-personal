@@ -38,7 +38,6 @@ class Tables extends React.Component {
         let style = {
             width: width
         };
-        console.log(isShow, 'isShow');
         return (
             <div ref={id} className={`${isShow && styles.over || ''}`} style={style}>
                 {
@@ -53,7 +52,7 @@ class Tables extends React.Component {
 }
 
 Tables.propTypes = {
-
+    
 };
 Tables.defaultProps = {
     text: '1',

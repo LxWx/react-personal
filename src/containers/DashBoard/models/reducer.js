@@ -1,4 +1,3 @@
-import {combineReducers} from 'redux';
 import {CloneDeep} from 'common';
 import * as Act from './actions';
 

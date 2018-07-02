@@ -1,4 +1,4 @@
-import {takeEvery} from 'redux-saga/effects';
+import {takeEvery, put} from 'redux-saga/effects';
 import * as Act from './actions';
 import * as fetch from '../api';
 import {callFetch} from 'common';
@@ -9,8 +9,9 @@ function* fetchUser() {
 }
 
 function* _fetchUser(action) {
+    yield put({type: 'changeLoading', data: {loading: true}});
     let res = yield callFetch(fetch.addNum, {});
-    console.log(res);
+    yield put({type: 'changeLoading', data: {loading: false}});
 }
 
 export default function* root() {
