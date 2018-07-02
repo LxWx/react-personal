@@ -7,7 +7,7 @@ import Main from '../containers/layout/Main.jsx';
 import {History} from '../utils/index.js';
 import {config} from '../config/config';
 import Bundle from './Bundle';
-
+import {NoMatch} from 'components';
 class Routes extends Component {
     constructor(props) {
         super(props);
@@ -24,6 +24,7 @@ class Routes extends Component {
                                 return <Route key={i} path={item.path} component={Bundle.create(item.comp)}/>;
                             })
                         }
+                        <Route component={NoMatch} />
                     </Switch>
                 </Main>
             </Router>

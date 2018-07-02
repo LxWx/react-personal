@@ -1,4 +1,4 @@
-const nav1 = require('../containers/nav1/api/apiConfig');
+const nav1 = require('../containers/DashBoard/api/apiConfig');
 let fetchData = [
     nav1
 ];

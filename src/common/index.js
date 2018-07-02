@@ -1,10 +1,12 @@
-import { call } from 'redux-saga/effects';
+import { call, put} from 'redux-saga/effects';
+import * as Act from 'commonStore/actions';
 const cloneDeep = require('lodash/cloneDeep');
 
 // saga请求封装
 export function* callFetch(fetch, params) {
     return yield call(fetch, params);
 }
+
 // clone
 export function CloneDeep(obj) {
     return cloneDeep(obj);

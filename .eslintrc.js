@@ -27,7 +27,6 @@ module.exports = {
         "no-iterator": 2,//禁止使用__iterator__ 属性
         "no-labels": 2,//禁止标签声明
         "no-lone-blocks": 2,//禁止不必要的嵌套块
-        "no-mixed-spaces-and-tabs": [2, false],//禁止混用tab和空格
         "linebreak-style": [0, "windows"],//换行风格
         "no-multi-spaces": 1,//不能用多余的空格
         "no-multiple-empty-lines": [1, { "max": 2 }],//空行最多不能超过2行

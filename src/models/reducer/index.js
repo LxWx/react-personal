@@ -2,6 +2,7 @@ import {combineReducers} from 'redux';
 // import {CloneDeep} from 'common';
 import {models} from '../../config/config';
 import CommonStore from 'commonStore';
+console.log(CommonStore, 'CommonStore');
 let extractReducer = (configs = []) => {
     return configs.reduce((previousValue, currentValue) => {
         let {reducer} = currentValue;
@@ -12,8 +13,9 @@ let extractReducer = (configs = []) => {
         };
     }, {});
 };
+
 let reducer = extractReducer(models);
-reducer = Object.assign({}, reducer, CommonStore);
 export default combineReducers({
-    ...reducer
+    ...reducer,
+    ...CommonStore
 });

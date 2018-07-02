@@ -1,7 +1,6 @@
 import axios from 'axios';
 import {CloneDeep} from 'common';
 import pathToRegexp from 'path-to-regexp';
-
 const encodeParam = (data = {}) => {
     let formBody = [];
     for (let property in data) {
