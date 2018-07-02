@@ -1,6 +1,13 @@
 import axios from 'axios';
 import {CloneDeep} from 'common';
 import pathToRegexp from 'path-to-regexp';
+import {Loading} from 'components';
+let loadingInstance = 0;
+let getLoadingInstance = () => {
+    loadingInstance = Loading.newInstance();
+    return loadingInstance;
+};
+
 const encodeParam = (data = {}) => {
     let formBody = [];
     for (let property in data) {
@@ -12,6 +19,7 @@ const encodeParam = (data = {}) => {
 };
 
 const fetch = (options) => {
+    getLoadingInstance();
     let {
         method = 'get',
         data,
@@ -33,6 +41,10 @@ const fetch = (options) => {
         }
         url = domin + url;
     } catch (e) {
+        if (loadingInstance) {
+            loadingInstance.destroy();
+            loadingInstance = null;
+        }
         console.log(e.message);
     }
     axios.defaults.headers.common.Authorization = '';
@@ -72,6 +84,10 @@ export default function request(options) {
             } = response;
             let jsonResult = response.jsonResult;
             let data = response.data;
+            if (loadingInstance) {
+                loadingInstance.destroy();
+                loadingInstance = null;
+            }
             return {
                 success: true,
                 message: statusText,
@@ -92,6 +108,10 @@ export default function request(options) {
                 } = response;
                 statusCode = response.status;
                 msg = response.message || statusText;
+            }
+            if (loadingInstance) {
+                loadingInstance.destroy();
+                loadingInstance = null;
             }
             return {
                 success: false,

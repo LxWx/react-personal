@@ -1,7 +1,8 @@
 import { call, put} from 'redux-saga/effects';
 import * as Act from 'commonStore/actions';
+import React from 'react';
 const cloneDeep = require('lodash/cloneDeep');
-
+import {Loading} from 'components';
 // saga请求封装
 export function* callFetch(fetch, params) {
     return yield call(fetch, params);
@@ -10,6 +11,10 @@ export function* callFetch(fetch, params) {
 // clone
 export function CloneDeep(obj) {
     return cloneDeep(obj);
+}
+
+export function appendDiv(obj) {
+    
 }
 
 

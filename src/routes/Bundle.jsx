@@ -1,5 +1,5 @@
 import React, { Component } from 'react';
-
+import {Loading} from 'components';
 
 class Bundle extends Component {
     constructor(props) {
@@ -20,8 +20,10 @@ class Bundle extends Component {
     }
 
     load(props) {
+        console.log(this.props, 'abc');
         this.setState({
-            mod: null
+            mod: null,
+            loading: true
         });
         props.load((mod) => {
             this.setState({
@@ -31,7 +33,7 @@ class Bundle extends Component {
     }
 
     render() {
-        return this.state.mod ? this.props.children(this.state.mod) : null;
+        return this.state.mod ? this.props.children(this.state.mod) : <Loading loading={true}/>;
     }
 }
 Bundle.create = (load) => {

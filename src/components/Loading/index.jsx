@@ -1,6 +1,7 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 import styles from './index.less';
+import ReactDOM from 'react-dom';
 const uuid = require('uuid/v4');
 class Loading extends React.Component {
     constructor(props) {
@@ -48,6 +49,19 @@ Loading.propTypes = {
 
 };
 Loading.defaultProps = {
-    loading: false
+    loading: true
 };
 export default Loading;
+
+Loading.newInstance = function newNotificationInstance(properties) {
+    let div = document.createElement('div');
+    div.className = 'newDiv';
+    document.getElementById('main').appendChild(div);
+    let notification = ReactDOM.render(React.createElement(Loading, properties), div);
+    return {
+        destroy() {
+            ReactDOM.unmountComponentAtNode(div);
+            document.getElementById('main').removeChild(div);
+        },
+    };
+};

@@ -4,11 +4,12 @@ import styles from './Main.less';
 import {config} from '../../config/config';
 import {History} from '../../utils';
 import {CloneDeep} from 'common';
+import {PureComponent} from 'components';
 const {Header, Content, Footer, Sider} = Layout;
 const MenuItem = Menu.Item;
 const SubMenu = Menu.SubMenu;
 
-class Main extends Component {
+class Main extends PureComponent {
     constructor(props) {
         super(props);
         this.state = {
@@ -28,6 +29,7 @@ class Main extends Component {
     }
     render() {
         let {openKeys, selectedKeys, collapsed} = this.state;
+        // const {loading} = this.props.newData;
         return <Layout style={{minHeight: '100%', overflowY: 'auto', height: '100%'}}>
             <Sider onCollapse={this.onCollapse} collapsed={collapsed} style={{ overflow: 'auto', height: '100vh', position: 'fixed', left: 0 }}>
                 <div className='logo' style={{height: 32, background: 'rgba(255,255,255,.2)', margin: 16}}
@@ -90,7 +92,7 @@ class Main extends Component {
                     </div>
 
                 </Header>
-                <Content className={styles.content} style={{overflow: 'initial'}}>
+                <Content id="main" className={styles.content} style={{overflow: 'initial'}}>
                     <div>
                         {this.props.children}
                     </div>
@@ -169,5 +171,4 @@ class Main extends Component {
     };
 
 }
-
 export default Main;

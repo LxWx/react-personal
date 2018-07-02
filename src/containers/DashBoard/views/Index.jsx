@@ -2,7 +2,7 @@ import React from 'react';
 import { connect } from 'react-redux';
 import * as Act from '../models/actions';
 // import styles from './index.less';
-import { PureComponent, ToolTipText } from 'components';
+import { PureComponent, ToolTipText, Loading } from 'components';
 import MyQueryTable from './myQueryTable';
 import MyQuery from './myQuery';
 import { Row, Col } from 'antd';
@@ -10,21 +10,16 @@ import { Row, Col } from 'antd';
 // import PropTypes from 'prop-types';
 // import {createTimer, clearTimer} from 'common';
 
-
 class Home extends PureComponent {
     constructor(props) {
         super(props);
     }
     aa = () => {
-        const {dispatch} = this.props;
-        dispatch(Act.addNumAct());
+        this.props.dispatch(Act.addNumAct());
     }
     render() {
         return <div>
-            <div onClick={this.aa}>
-                aaaa
-            </div>
-            <div style={{ width: 100 }}>
+            <div onClick={this.aa} style={{ width: 100 }}>
                 <ToolTipText />
             </div>
             <Row gutter={20}>
