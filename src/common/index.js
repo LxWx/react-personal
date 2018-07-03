@@ -1,5 +1,4 @@
 import { call, put} from 'redux-saga/effects';
-import * as Act from 'commonStore/actions';
 import React from 'react';
 const cloneDeep = require('lodash/cloneDeep');
 import {Loading} from 'components';

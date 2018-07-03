@@ -9,9 +9,8 @@ function* fetchUser() {
 }
 
 function* _fetchUser(action) {
-    yield put({type: 'changeLoading', data: {loading: true}});
     let res = yield callFetch(fetch.addNum, {});
-    yield put({type: 'changeLoading', data: {loading: false}});
+    console.log(res, 'res');
 }
 
 export default function* root() {

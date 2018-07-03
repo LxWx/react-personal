@@ -88,7 +88,7 @@ class Main extends PureComponent {
                         提交工单
                     </Button>
                     <div className={styles.user}>
-                            xxxxxx
+                        {this.props.user.user || ''}
                     </div>
 
                 </Header>
@@ -145,6 +145,10 @@ class Main extends PureComponent {
     };
 
     setSelectAndOpenKeys = (location) => {
+        const {user} = this.props;
+        if (!user.user) {
+            return;
+        }
         let {urlKeys} = this.state;
         console.log(urlKeys, 'urlKeys');
         let keyObj = urlKeys[location.pathname == '/' ? '/dashBoard' : location.pathname];

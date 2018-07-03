@@ -6,7 +6,7 @@ module.exports = {
         inline: true, //用来支持dev-server自动刷新的配置
         progress: true, // 显示打包进度
         //host: '0.0.0.0',
-        port: 8080, //端口号
+        port: 8999, //端口号
         proxy: {
 
             '/mock/*': {
