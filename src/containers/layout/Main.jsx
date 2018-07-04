@@ -29,6 +29,7 @@ class Main extends PureComponent {
     }
     render() {
         let {openKeys, selectedKeys, collapsed} = this.state;
+        console.log(this.props);
         // const {loading} = this.props.newData;
         return <Layout style={{minHeight: '100%', overflowY: 'auto', height: '100%'}}>
             <Sider onCollapse={this.onCollapse} collapsed={collapsed} style={{ overflow: 'auto', height: '100vh', position: 'fixed', left: 0 }}>
@@ -106,6 +107,10 @@ class Main extends PureComponent {
     }
 
     componentWillMount() {
+        const {user} = this.props;
+        if (!user.user) {
+            return;
+        }
         this.setState({
             urlKeys: this.createUrlKey(config.menuList)
         }, () => {
@@ -115,6 +120,10 @@ class Main extends PureComponent {
     }
 
     componentDidMount() {
+        const {user} = this.props;
+        if (!user.user) {
+            return;
+        }
         History.listen((location, action) => {
             this.setSelectAndOpenKeys(location);
         });
@@ -151,10 +160,10 @@ class Main extends PureComponent {
         }
         let {urlKeys} = this.state;
         console.log(urlKeys, 'urlKeys');
-        let keyObj = urlKeys[location.pathname == '/' ? '/dashBoard' : location.pathname];
+        let keyObj = urlKeys[location.pathname == '/' ? '/dashBoard' : location.pathname] || null;
         this.setState({
-            selectedKeys: keyObj.selectKey,
-            openKeys: keyObj.parentsKey
+            selectedKeys: keyObj && keyObj.selectKey,
+            openKeys: keyObj && keyObj.parentsKey
         });
     };
 

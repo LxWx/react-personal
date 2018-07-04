@@ -1,7 +1,8 @@
 import axios from 'axios';
-import {CloneDeep} from 'common';
+import {CloneDeep, getStorage} from 'common';
 import pathToRegexp from 'path-to-regexp';
 import {Loading} from 'components';
+
 let loadingInstance = 0;
 let getLoadingInstance = () => {
     loadingInstance = Loading.newInstance();
@@ -25,6 +26,7 @@ const fetch = (options) => {
         data,
         url
     } = options;
+    data.user = getStorage('user') || '';
     const cloneData = CloneDeep(data);
     try {
         let domin = '';

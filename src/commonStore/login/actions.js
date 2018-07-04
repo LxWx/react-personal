@@ -1,5 +1,5 @@
-const USER_LOGGED_IN = 'userLoggedIn';
-const USER_LOGGED_OUT = 'userLoggedOut';
+export const USER_LOGGED_IN = 'userLoggedIn';
+export const USER_LOGGED_OUT = 'userLoggedOut';
 
 export function userLoggedIn(data) {
     return {

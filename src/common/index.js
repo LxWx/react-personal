@@ -12,10 +12,34 @@ export function CloneDeep(obj) {
     return cloneDeep(obj);
 }
 
-export function appendDiv(obj) {
-    
+// set localStorage
+export function setStorage(key, val) {
+    let value = val;
+    if (Array.isArray(val)) {
+        return;
+    } else if (!Array.isArray(val) && typeof val == 'object') {
+        value = JSON.stringify(info);
+    }
+    return window.localStorage.setItem(key, value);
 }
 
+// get localStorage
+
+export function getStorage(key) {
+    return window.localStorage.getItem(key);
+}
+
+
+// delete localStorage
+export function deleteStorage(key) {
+    return window.localStorage.removeItem(key);
+}
+
+
+// delete all localStorage
+export function deleteAllStorage() {
+    return window.localStorage.clear();
+}
 
 // export function createTimer(callback, time, type = true) {
 //     window.requestAnimationFrame =

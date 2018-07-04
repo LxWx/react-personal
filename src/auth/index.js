@@ -27,7 +27,7 @@ connectedAuthWrapper({
 }): HigherOrderComponent
 
  */
-const locationHelper = locationHelperBuilder({});
+// const locationHelper = locationHelperBuilder({});
 
 const userIsAuthenticatedDefaults = {
     authenticatedSelector: state => state.login.user !== null,
@@ -35,33 +35,34 @@ const userIsAuthenticatedDefaults = {
     wrapperDisplayName: 'UserIsAuthenticated'
 };
 
-export const userIsAuthenticated = connectedAuthWrapper(userIsAuthenticatedDefaults);
+// export const userIsAuthenticated = connectedAuthWrapper(userIsAuthenticatedDefaults);
 
 export const userIsAuthenticatedRedir = connectedRouterRedirect({
     ...userIsAuthenticatedDefaults,
-    redirectPath: '/login'
-});
-
-export const userIsAdminRedir = connectedRouterRedirect({
-    redirectPath: '/',
-    allowRedirectBack: false,
-    authenticatedSelector: state => state.user.data !== null && state.user.data.isAdmin,
-    predicate: user => user.isAdmin,
-    wrapperDisplayName: 'UserIsAdmin'
-});
-
-const userIsNotAuthenticatedDefaults = {
-    // Want to redirect the user when they are done loading and authenticated
-    authenticatedSelector: state => state.user.data === null && state.user.isLoading === false,
-    wrapperDisplayName: 'UserIsNotAuthenticated'
-};
-
-export const userIsNotAuthenticated = connectedAuthWrapper(userIsNotAuthenticatedDefaults);
-
-export const userIsNotAuthenticatedRedir = connectedRouterRedirect({
-    ...userIsNotAuthenticatedDefaults,
-    redirectPath: (state, ownProps) => {
-        return locationHelper.getRedirectQueryParam(ownProps) || '/protected';
-    },
+    redirectPath: '/login',
     allowRedirectBack: false
 });
+
+// export const userIsAdminRedir = connectedRouterRedirect({
+//     redirectPath: '/',
+//     allowRedirectBack: false,
+//     authenticatedSelector: state => state.user.data !== null && state.user.data.isAdmin,
+//     predicate: user => user.isAdmin,
+//     wrapperDisplayName: 'UserIsAdmin'
+// });
+
+// const userIsNotAuthenticatedDefaults = {
+//     // Want to redirect the user when they are done loading and authenticated
+//     authenticatedSelector: state => state.login.user !== null,
+//     wrapperDisplayName: 'UserIsNotAuthenticated'
+// };
+
+// // export const userIsNotAuthenticated = connectedAuthWrapper(userIsNotAuthenticatedDefaults);
+
+// export const userIsNotAuthenticatedRedir = connectedRouterRedirect({
+//     ...userIsNotAuthenticatedDefaults,
+//     redirectPath: (state, ownProps) => {
+//         return locationHelper.getRedirectQueryParam(ownProps) || '/dashBoard';
+//     },
+//     allowRedirectBack: true
+// });
