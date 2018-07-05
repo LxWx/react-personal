@@ -15,7 +15,7 @@ class Home extends PureComponent {
         super(props);
     }
     aa = () => {
-        this.props.dispatch(Act.addNumAct());
+        this.props.dispatch(Act.addNum());
     }
     render() {
         return <div>

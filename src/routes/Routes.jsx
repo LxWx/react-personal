@@ -3,7 +3,7 @@ import { Router, Route, Switch, withRouter} from 'react-router-dom';
 import Home from '../containers/DashBoard/views/index.jsx';
 import Login from 'bundle-loader?lazy!../containers/Login/index.jsx';
 import Main from '../containers/layout/Main.jsx';
-import { History } from '../utils/index.js';
+import { webHistory } from '../utils/index.js';
 import { config } from '../config/config';
 import Bundle from './Bundle';
 import { connect } from 'react-redux';
@@ -28,7 +28,7 @@ class Routes extends Component {
 
     render() {
         return (
-            <Router history={History}>
+            <Router history={webHistory}>
                 <Switch>
                     <Route path='/login' component={withRouter(Bundle.create(Login))} />
                     <Route path='/' exact component={withRouter(Bundle.create(Login))} />

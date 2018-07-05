@@ -2,7 +2,7 @@ import React, {Component} from 'react';
 import {Layout, Menu, Icon, Button} from 'antd';
 import styles from './Main.less';
 import {config} from '../../config/config';
-import {History} from '../../utils';
+import {webHistory} from '../../utils';
 import {CloneDeep} from 'common';
 import {PureComponent} from 'components';
 const {Header, Content, Footer, Sider} = Layout;
@@ -29,7 +29,6 @@ class Main extends PureComponent {
     }
     render() {
         let {openKeys, selectedKeys, collapsed} = this.state;
-        console.log(this.props);
         // const {loading} = this.props.newData;
         return <Layout style={{minHeight: '100%', overflowY: 'auto', height: '100%'}}>
             <Sider onCollapse={this.onCollapse} collapsed={collapsed} style={{ overflow: 'auto', height: '100vh', position: 'fixed', left: 0 }}>
@@ -98,10 +97,9 @@ class Main extends PureComponent {
                         {this.props.children}
                     </div>
                 </Content>
-                <Footer style={{textAlign: 'center'}}>
-                    {/*Ant Design ©2016 Created by Ant UED*/}
+                {/* <Footer style={{textAlign: 'center'}}>
                     scy-webpack-react-redux-saga-antd-json_server-axios-icon by scy in 201801
-                </Footer>
+                </Footer> */}
             </Layout>
         </Layout>;
     }
@@ -114,7 +112,7 @@ class Main extends PureComponent {
         this.setState({
             urlKeys: this.createUrlKey(config.menuList)
         }, () => {
-            this.setSelectAndOpenKeys(History.location);
+            this.setSelectAndOpenKeys(webHistory.location);
         });
 
     }
@@ -124,7 +122,7 @@ class Main extends PureComponent {
         if (!user.user) {
             return;
         }
-        History.listen((location, action) => {
+        webHistory.listen((location, action) => {
             this.setSelectAndOpenKeys(location);
         });
     }
@@ -159,7 +157,6 @@ class Main extends PureComponent {
             return;
         }
         let {urlKeys} = this.state;
-        console.log(urlKeys, 'urlKeys');
         let keyObj = urlKeys[location.pathname == '/' ? '/dashBoard' : location.pathname] || null;
         this.setState({
             selectedKeys: keyObj && keyObj.selectKey,
@@ -172,7 +169,7 @@ class Main extends PureComponent {
         this.setState({
             selectedKeys: [e.key]
         });
-        History.push(e.key);
+        webHistory.push(e.key);
     };
 
     // 导航栏展开/关闭

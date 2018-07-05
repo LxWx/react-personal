@@ -71,3 +71,31 @@ const newArray = update(initialArray, {$push: [4]}); // => [1, 2, 3, 4]
 const collection = [1, 2, {a: [12, 17, 15]}];
 const newCollection = update(collection, {2: {a: {$splice: [[1, 1, 13, 14]]}}});
 // => [1, 2, {a: [12, 13, 14, 15]}]
+
+
+使用 redux-actions  来减少样板代码带来的影响
+
+1. action: 
+​createAction(type)​
+
+​createAction(type, payloadCreator)​
+
+​createAction(type, payloadCreator, metaCreator)​
+
+​createActions(actionMap)​
+
+​createActions(actionMap, ...identityActions)​
+
+
+2.reducer: 
+
+
+​handleAction(type, reducer, defaultState)​
+
+​handleAction(type, reducerMap, defaultState)​
+
+​handleActions(reducerMap, defaultState)​
+
+3.​combineActions​
+
+​combineActions(...types)​

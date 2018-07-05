@@ -1,16 +1,14 @@
-import * as Act from './actions';
+import { handleActions } from 'redux-actions';
 
-const initialState = {
+const initState = {
     user: null
 };
 
-export default function userUpdate(state = initialState, { type, data }) {
-    switch (type) {
-    case Act.USER_LOGGED_IN:
-        return { user: data};
-    case Act.USER_LOGGED_OUT:
+export const loginState = handleActions({
+    'userLoggedIn'(state, action) {
+        return { ...state, user: action.payload };
+    },
+    'userLoggedOut'(state, action) {
         return initialState;
-    default:
-        return state;
-    }
-}
+    },
+}, initState); 

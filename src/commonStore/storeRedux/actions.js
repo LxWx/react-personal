@@ -1,8 +1,5 @@
-export const CHANGE_LOADING = 'changeLoading';
+import {
+    createAction,
+} from 'redux-actions';
 
-export function changeLoading(data) {
-    return {
-        type: CHANGE_LOADING,
-        data
-    };
-}
+export const changeLoading = createAction('changeLoading');

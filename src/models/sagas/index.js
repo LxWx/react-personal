@@ -10,7 +10,6 @@ const mergeSagas = (configs = []) => {
 let sagas = mergeSagas(models);
 export default function* rootSaga() {
     yield (sagas || []).map((fn) => {
-        console.log(fn, 'fn');
         return fn && typeof fn == 'function' && fn();
     });
 }

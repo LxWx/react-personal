@@ -20,7 +20,6 @@ class Bundle extends Component {
     }
 
     load(props) {
-        console.log(this.props, 'abc');
         this.setState({
             mod: null,
             loading: true

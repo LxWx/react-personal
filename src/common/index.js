@@ -20,19 +20,19 @@ export function setStorage(key, val) {
     } else if (!Array.isArray(val) && typeof val == 'object') {
         value = JSON.stringify(info);
     }
-    return window.localStorage.setItem(key, value);
+    return localStorage.setItem(key, value);
 }
 
 // get localStorage
 
 export function getStorage(key) {
-    return window.localStorage.getItem(key);
+    return localStorage.getItem(key);
 }
 
 
 // delete localStorage
 export function deleteStorage(key) {
-    return window.localStorage.removeItem(key);
+    return localStorage.removeItem(key);
 }
 
 

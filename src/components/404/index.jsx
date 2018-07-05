@@ -2,14 +2,14 @@ import React from 'react';
 import PropTypes from 'prop-types';
 import {Button} from 'antd';
 import styles from './index.less';
-import {History} from '../../utils';
+import {webHistory} from '../../utils';
 const uuid = require('uuid/v4');
 class Not extends React.Component {
     constructor(props) {
         super(props);
     }
     goHome = () => {
-        History.push('/dashBoard');
+        webHistory.push('/dashBoard');
     }
     render() {
         return (

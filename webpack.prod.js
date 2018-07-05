@@ -18,7 +18,6 @@ const vendorConfig = require(APP_PATH + '/config/vendorConfig.js') || {};
 const lessToJs = require('less-vars-to-js');
 
 const themer = lessToJs(fs.readFileSync(path.join(APP_PATH, './resources/style/theme.less'), 'utf8'));
-console.log(themer, 'themer');
 
 module.exports = {
     // 入口

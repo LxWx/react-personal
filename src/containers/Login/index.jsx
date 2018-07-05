@@ -5,7 +5,8 @@ import styles from './index.less';
 import { connect } from 'react-redux';
 import * as Act from 'commonStore/login/actions';
 import locationHelperBuilder from 'redux-auth-wrapper/history4/locationHelper';
-import {History} from 'utils';
+import {webHistory} from 'utils';
+import update from 'immutability-helper';
 // import {deleteStorage} from 'common';
 const locationHelper = locationHelperBuilder({});
 const FormItem = Form.Item;
@@ -14,13 +15,20 @@ const FormItem = Form.Item;
 }))
 @Form.create()
 export default class NormalLoginForm extends PureComponent {
+    constructor(props) {
+        super(props);
+        const initialArray = [1, 2, 3];
+        const newArray = update(initialArray, {$set: [4]}); // => [1, 2, 3, 4]
+        console.log(initialArray, 'initialArray');
+        console.log(newArray, 'newArray');
+    }
     handleSubmit = (e) => {
         const {dispatch} = this.props;
         this.props.form.validateFields((err, values) => {
             if (!err) {
                 dispatch(Act.userLoggedIn(values['userName']));
                 const url = locationHelper.getRedirectQueryParam(this.props);
-                History.push(url || '/dashBoard');
+                webHistory.replace(url || '/dashBoard');
             }
         });
     }
@@ -28,7 +36,8 @@ export default class NormalLoginForm extends PureComponent {
         const {user} = this.props;
         if (user.user) {
             const url = locationHelper.getRedirectQueryParam(this.props);
-            History.push(url);
+            // webHistory.push(url || '/dashBoard');
+            webHistory.replace(url || '/dashBoard');
         }
     }
     render() {

@@ -1,4 +1,4 @@
-import History from './lib/history.js';
+import webHistory from './lib/history.js';
 import request from './lib/request';
 
 let mergeConfig = (configs = []) => {
@@ -17,7 +17,7 @@ let mergeConfig = (configs = []) => {
 };
 
 module.exports = {
-    History,
+    webHistory,
     mergeConfig,
     request
 };

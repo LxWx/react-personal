@@ -1,11 +1,10 @@
 import {takeEvery, put} from 'redux-saga/effects';
-import * as Act from './actions';
 import * as fetch from '../api';
 import {callFetch} from 'common';
 
 
 function* fetchUser() {
-    yield takeEvery(Act.ADDNUM, _fetchUser);
+    yield takeEvery('addNum', _fetchUser);
 }
 
 function* _fetchUser(action) {
