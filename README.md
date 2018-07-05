@@ -1,101 +1,81 @@
-# start
+# 前言
+
+大数据后台管理
 
 
-## 开始   2018/3/2
+## 技术栈
+
+react@16.2 + redux@3.7.2 + react-router@4.2.0 + webpack@3.10.0 + axios@0.17.1 + less@2.7.3 + antd@3.6.4
+echarts + echarts-for-react + immutability-helper + redux-actions + redux-auth-wrapper + redux-saga
+
+
 
 ## 项目运行
 
-#### 注意：由于涉及大量的 ES6/7 等新属性，node 需要 6.0 以上版本 
+#### 注意：由于涉及大量的 ES6/7 等新属性，nodejs 必须是 6.0 以上版本 ，建议使用 node 最新LTS版
 
 ```
-git clone https://github.com/LxWx/start.git  
+git clone https://github.com/LxWx/react-personal.git
 
-cd start
+cd react-personal （进入当前的项目）
 
-npm install
+npm install  (安装依赖包)
 
-先运行npm run vendors 加载优化dll
+npm run vendors (打包Dll)
 
-npm run start
+npm start (运行本地开发环境)
 
-npm run build
+npm run build (打包)
 
+另开启一个命令窗口 启动node的本地json数据代理服务
 
+npm run mock (对，就是传说中的 mockjs http://highsea90.com/t/mock/)
 
 ```
+## 说明
 
-项目目录架构
+>  喜欢的别忘记了可以star一下的噢！ 
 
+>  开发环境 win10  Chrome 63.0.3239.132（正式版本） （32 位） nodejs 8.7.0
 
-common // 公共方法
-commonStore // 公共reducer
-components    // 公共组件
-config  // 配置
-containers  //路由组件
-entries // html
-mock // 本地mock服务
-resources   // 静态文件
-routes //路由
-store // store
-utils // 工具函数
+>  如果npm install太慢导致有些npm依赖包下载失败 你可以看控制台的报错信息，再手动npm install 具体的开发包，推荐使用淘宝的注册源，直接运行，
 
+```
+npm install -g cnpm --registry=https://registry.npm.taobao.org 
 
-mock 服务规则 
-
-接口使用以mock开头
-
-
-
-
-import isEqual from 'fast-deep-equal';  // 判断对象引用关系
-
-import PropTypes from 'prop-types';  // 属性判断
-
-import update from 'immutability-helper';
-
-immutability-helper 使用方法
-
-# 为什么要使用immutability-helper
-
-# 避免数据污染导致的数组混乱，减少render渲染，使数据是不可变的
-
-# 使用方法 https://www.npmjs.com/package/immutability-helper
-
-# 例子
-
-// array push
-const initialArray = [1, 2, 3];
-const newArray = update(initialArray, {$push: [4]}); // => [1, 2, 3, 4]
-
-// splice = arr.splice (index, len , add)
-const collection = [1, 2, {a: [12, 17, 15]}];
-const newCollection = update(collection, {2: {a: {$splice: [[1, 1, 13, 14]]}}});
-// => [1, 2, {a: [12, 13, 14, 15]}]
+```
+## 功能一览
+- [√] 路由配置化加载
+- [√] redux配置化加载
+- [√] saga配置化加载
+- [√] 登录
+- [√] 权限控制
+- [√] redux完整示范
+- [√] mockjs模拟后端返回接口
+  [√] 其他中间件优化样板代码
 
 
-使用 redux-actions  来减少样板代码带来的影响
+## 总结
 
-1. action: 
-​createAction(type)​
+1. 学习中
 
-​createAction(type, payloadCreator)​
+## 项目结构
 
-​createAction(type, payloadCreator, metaCreator)​
+见目录
 
-​createActions(actionMap)​
+auth: 权限管理的HOC
+common: 公共方法
+commonStore: 公共store
+components: 公共组件
+config: 公共配置
+containers: 业务组件
+entries: 静态html
+mock: mock服务
+models: reducer saga
+resources: 静态文件
+routes： 路由
+store： store
+utils: 其他配置
 
-​createActions(actionMap, ...identityActions)​
 
 
-2.reducer: 
-
-
-​handleAction(type, reducer, defaultState)​
-
-​handleAction(type, reducerMap, defaultState)​
-
-​handleActions(reducerMap, defaultState)​
-
-3.​combineActions​
-
-​combineActions(...types)​
