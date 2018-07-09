@@ -9,7 +9,7 @@ function* fetchUser() {
 
 function* _fetchUser(action) {
     let res = yield callFetch(fetch.addNum, {});
-    console.log(res, 'res');
+    console.log(res, '2222');
 }
 
 export default function* root() {

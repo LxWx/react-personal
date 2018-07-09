@@ -8,16 +8,21 @@ class Tables extends React.Component {
         super(props);
     }
     render() {
-        const {columns, data, title} = this.props;
+        const {columns, data, title, all} = this.props;
         return (
             <div className={styles.queryContent}>
                 <div className={styles.title + ' clearfix'}>
                     <span className={'left'}>
                         {title}
                     </span>
-                    <Button className={styles.btn + ' right'} size="small" type="primary">查看全部</Button>
+                    {all && <Button className={styles.btn + ' right'} size="small" type="primary">查看全部</Button> || null}
                 </div>
-                <Table columns={columns} dataSource={data} />
+                <Table
+                    columns={columns}
+                    dataSource={data}
+                    bordered
+                    showHeader={false}
+                />
             </div>
         );
     }
@@ -65,6 +70,7 @@ Tables.defaultProps = {
         name: 'Joe Black',
         age: 32,
         address: 'Sidney No. 1 Lake Park',
-    }]
+    }],
+    all: true
 };
 export default Tables;

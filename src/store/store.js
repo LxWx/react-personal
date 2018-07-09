@@ -8,5 +8,17 @@ const store = createStore(
     reduces,
     applyMiddleware(sagaMiddleware)
 );
+
+if (module.hot) {
+    // Enable Webpack hot module replacement for reducers
+    module.hot.accept('../models/reducer', () => {
+        const nextRootReducer = require('../models/reducer');
+        store.replaceReducer(nextRootReducer);
+    });
+    module.hot.accept('../models/sagas', () => {
+        const nextRootReducer = require('../models/sagas');
+        store.replaceReducer(nextRootReducer);
+    });
+}
 sagaMiddleware.run(rootSaga);
 export default store;

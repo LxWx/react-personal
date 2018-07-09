@@ -17,10 +17,10 @@ const FormItem = Form.Item;
 export default class NormalLoginForm extends PureComponent {
     constructor(props) {
         super(props);
-        const initialArray = [1, 2, 3];
-        const newArray = update(initialArray, {$set: [4]}); // => [1, 2, 3, 4]
-        console.log(initialArray, 'initialArray');
-        console.log(newArray, 'newArray');
+        // const initialArray = [1, 2, 3];
+        // const newArray = update(initialArray, {$set: [4]}); // => [1, 2, 3, 4]
+        // console.log(initialArray, 'initialArray');
+        // console.log(newArray, 'newArray');
     }
     handleSubmit = (e) => {
         const {dispatch} = this.props;

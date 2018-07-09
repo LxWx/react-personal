@@ -1,7 +1,7 @@
 import { handleActions } from 'redux-actions';
 
 const initState = {
-    user: null
+    user: '111'
 };
 
 export const loginState = handleActions({

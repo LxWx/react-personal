@@ -3,7 +3,7 @@ import PropTypes from 'prop-types';
 import {Tooltip} from 'antd';
 import styles from './index.less';
 const uuid = require('uuid/v4');
-class Tables extends React.Component {
+class ToolTipText extends React.Component {
     constructor(props) {
         super(props);
         this.state = {
@@ -51,11 +51,11 @@ class Tables extends React.Component {
     }
 }
 
-Tables.propTypes = {
+ToolTipText.propTypes = {
     
 };
-Tables.defaultProps = {
+ToolTipText.defaultProps = {
     text: '1',
     width: '100%'
 };
-export default Tables;
+export default ToolTipText;

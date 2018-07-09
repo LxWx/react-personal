@@ -1,13 +1,13 @@
 import PureComponent from './pureComponent';
 import Charts from './Charts';
-import Table from './Table';
+import Tables from './Table';
 import ToolTipText from './ToolTipText';
 import NoMatch from './404';
 import Loading from './Loading';
 export {
     PureComponent,
     Charts,
-    Table,
+    Tables,
     ToolTipText,
     NoMatch,
     Loading

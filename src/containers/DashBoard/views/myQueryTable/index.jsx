@@ -18,7 +18,7 @@ class myQueryTable extends PureComponent {
                     </span>
                     <Button className={styles.btn} size="small" type="primary">查看全部</Button>
                 </div>
-                <Table columns={columns} dataSource={data} />
+                <Table showHeader={false} columns={columns} dataSource={data} bordered />
             </div>
         );
     }

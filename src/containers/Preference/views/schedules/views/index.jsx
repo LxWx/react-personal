@@ -2,7 +2,7 @@ import React from 'react';
 import { connect } from 'react-redux';
 // import * as Act from '../../../models/actions';
 import styles from './index.less';
-import { PureComponent, Charts, Table} from 'components';
+import { PureComponent, Charts, Tables} from 'components';
 import { Row, Col, Checkbox } from 'antd';
 class Schedules extends PureComponent {
     constructor(props) {
@@ -12,8 +12,8 @@ class Schedules extends PureComponent {
         const { title } = this.props;
         return (
             <div className={styles.main}>
-                <Table />
-                <Table />
+                <Tables />
+                <Tables />
             </div>
         );
     }
