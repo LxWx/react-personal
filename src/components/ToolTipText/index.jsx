@@ -1,9 +1,9 @@
-import React from 'react';
+import React, {PureComponent} from 'react';
 import PropTypes from 'prop-types';
 import {Tooltip} from 'antd';
 import styles from './index.less';
 const uuid = require('uuid/v4');
-class ToolTipText extends React.Component {
+class ToolTipText extends PureComponent {
     constructor(props) {
         super(props);
         this.state = {

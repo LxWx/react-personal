@@ -1,4 +1,4 @@
-import views from 'bundle-loader?lazy!./views/index';
+import views from './views/index';
 import * as action from './models/actions';
 import reducer from './models/reducer';
 import sagas from './models/sagas';
@@ -13,6 +13,7 @@ module.exports = {
         key: '/array',
         iconFont: '',
         isMenu: true,
+        isBundle: false
     }],
     models: [{
         action,

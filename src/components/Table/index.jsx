@@ -1,9 +1,9 @@
-import React from 'react';
+import React, {PureComponent} from 'react';
 import PropTypes from 'prop-types';
 import {Table, Button} from 'antd';
 import styles from './index.less';
 
-class Tables extends React.Component {
+class Tables extends PureComponent {
     constructor(props) {
         super(props);
     }

@@ -1,10 +1,10 @@
-import React from 'react';
+import React, {PureComponent} from 'react';
 import PropTypes from 'prop-types';
 import {Button} from 'antd';
 import styles from './index.less';
 import {webHistory} from '../../utils';
 const uuid = require('uuid/v4');
-class Not extends React.Component {
+class Not extends PureComponent {
     constructor(props) {
         super(props);
     }
@@ -12,6 +12,7 @@ class Not extends React.Component {
         webHistory.push('/dashBoard');
     }
     render() {
+        console.log(1);
         return (
             <div className={styles.main}>
 

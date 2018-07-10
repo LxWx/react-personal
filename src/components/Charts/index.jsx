@@ -1,8 +1,8 @@
-import React, {Component} from 'react';
+import React, {PureComponent} from 'react';
 import ReactEcharts from 'echarts-for-react';
 import isEqual from 'fast-deep-equal';
 
-export default class barCharts extends Component {
+export default class barCharts extends PureComponent {
     constructor(props) {
         super(props);
     }

@@ -36,7 +36,7 @@ class Routes extends Component {
                         <Switch>
                             {
                                 config.routeList.map((item, i) => {
-                                    return <Route key={i} path={item.path} component={Auth.userIsAuthenticatedRedir(Bundle.create(item.comp))} />;
+                                    return <Route key={i} path={item.path} component={Auth.userIsAuthenticatedRedir(item.isBundle && Bundle.create(item.comp) || item.comp)} />;
                                 })
                             }
                             <Route component={Auth.userIsAuthenticatedRedir(NoMatch)} />

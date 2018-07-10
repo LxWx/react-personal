@@ -1,9 +1,9 @@
-import React from 'react';
+import React, {PureComponent} from 'react';
 import PropTypes from 'prop-types';
 import styles from './index.less';
 import ReactDOM from 'react-dom';
 const uuid = require('uuid/v4');
-class Loading extends React.Component {
+class Loading extends PureComponent {
     constructor(props) {
         super(props);
         this.state = {
