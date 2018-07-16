@@ -6,14 +6,14 @@ import sagas from './models/sagas';
 module.exports = {
     routeList: [{
         path: '/array',
-        comp: views
+        comp: views,
+        isBundle: false
     }],
     menuList: [{
         name: 'Array',
         key: '/array',
         iconFont: '',
-        isMenu: true,
-        isBundle: false
+        isMenu: true
     }],
     models: [{
         action,

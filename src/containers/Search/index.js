@@ -1,5 +1,5 @@
 import Arrays from './views/array/index';
-// import QueryLog from './views/queryLog/index';
+import Result from './views/result/index';
 // import Schedules from './views/schedules/index';
 // import Templates from './views/templates/index';
 import * as action from './models/actions';
@@ -10,7 +10,7 @@ module.exports = {
     routeList: [        
         
         ...Arrays.routeList,
-        // ...QueryLog.routeList,
+        ...Result.routeList,
         // ...Templates.routeList,
         // ...Schedules.routeList
     ],
@@ -23,7 +23,7 @@ module.exports = {
             ...Arrays.menuList,
             // ...Templates.menuList,
             // ...Schedules.menuList,
-            // ...QueryLog.menuList,
+            ...Result.menuList,
             
         ]
     }],
@@ -34,6 +34,7 @@ module.exports = {
         },
         sagas
     }].concat(Arrays.models, 
-        // QueryLog.models, Templates.models, Schedules.models
+        Result.models, 
+        // Templates.models, Schedules.models
     )
 };

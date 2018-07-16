@@ -6,13 +6,15 @@ import sagas from './models/sagas';
 module.exports = {
     routeList: [{
         path: '/dashBoard',
-        comp: view
+        comp: view,
+        isBundle: true
     }],
     menuList: [{
         name: 'DashBoard',
         key: '/dashBoard',
         iconFont: 'question-circle',
         isMenu: true,
+        
         // children: [{
         //     name: 'children1',
         //     key: '/index',

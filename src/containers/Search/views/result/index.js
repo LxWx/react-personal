@@ -5,12 +5,13 @@ import sagas from './models/sagas';
 
 module.exports = {
     routeList: [{
-        path: '/queryLog',
-        comp: views
+        path: '/result',
+        comp: views,
+        isBundle: true
     }],
     menuList: [{
-        name: 'Query Log',
-        key: '/queryLog',
+        name: 'Result',
+        key: '/result',
         iconFont: '',
         isMenu: true,
     }],

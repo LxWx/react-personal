@@ -1,4 +1,7 @@
 .main {
+    .formMain {
+        padding: 20px;
+    }
     .title {
         height: 32px;
         line-height: 32px;
@@ -9,7 +12,8 @@
             margin-top: 4px;
         }
     }
-    .checkMain {
+    .checkMain,
+    .columnMain{
         display: flex;
         flex-direction: column;
         float: right;
@@ -20,6 +24,11 @@
             line-height: 40px;
         }
     }
+    .columnMain {
+        float: none;
+        padding-left: 38px;
+    }
+    
     .arrMain {
         height: 40px;
         margin-bottom: 24px;
@@ -27,12 +36,80 @@
         line-height: 40px;
     }
     .screenTitle {
-        text-align: right;
+        width: 90px;
+        padding-left: 12px;
     }
-    .transfer {
+    .transfer,
+    .transferFixed{
         display: flex;
         justify-content: center;
         padding-left: 20px;
     }
+    .transferFixed {
+        height: 330px;
+        padding-top: 50px;
+    }
+    .labels {
+        width: 80px;
+        float: left;
+        text-align: right;
+    }
+    .value {
+        width: calc(~"100% - 80px");
+        float: right;
+        padding-left: 20px;
+    }
+    .columTitle {
+        padding-left: 3px;
+        .labels {
+            text-align: center;
+        }
+    }
+    .timeType {
+        display: flex;
+        flex-direction: column;
+        text-align: right;
+        label {
+            top: 10px;
+            padding-bottom: 37px;
+        }
+    }
+    .timeStyle {
+        padding-left: 20px;
+    }
+    .timeInput {
+        display: flex;
+        line-height: 32px;
+        padding-left: 20px;
+        input {
+            width: 60px;
+            margin: 0 5px;
+        }
+    }
+
+    .timecheck {
+        >div {
+            height: 40px;
+            margin-bottom: 10px;
+            width: 100%;
+            display: flex;
+            line-height: 40px;
+            border: 1px solid #ccc;
+            padding: 0 10px;
+            align-items: center;
+            > span {
+                flex-grow: 1;
+            }
+        }
+    }
     
+    
+}
+
+@media (min-width: 1500px) {
+        .main {
+            .columnMain {
+                padding-left: 80px;
+            }
+        }
 }

@@ -8,20 +8,22 @@ class Tables extends PureComponent {
         super(props);
     }
     render() {
-        const {columns, data, title, all} = this.props;
+        const {columns, data, title, all, showHeader} = this.props;
         return (
             <div className={styles.queryContent}>
-                <div className={styles.title + ' clearfix'}>
-                    <span className={'left'}>
-                        {title}
-                    </span>
-                    {all && <Button className={styles.btn + ' right'} size="small" type="primary">查看全部</Button> || null}
-                </div>
+                {
+                    title && <div className={styles.title + ' clearfix'}>
+                        <span className={'left'}>
+                            {title}
+                        </span>
+                        {all && <Button className={styles.btn + ' right'} size="small" type="primary">查看全部</Button> || null}
+                    </div>
+                }
                 <Table
                     columns={columns}
                     dataSource={data}
                     bordered
-                    showHeader={false}
+                    showHeader={showHeader}
                 />
             </div>
         );
@@ -34,6 +36,7 @@ Tables.propTypes = {
 };
 Tables.defaultProps = {
     title: '11111',
+    showHeader: false,
     columns: [{
         title: 'Name',
         dataIndex: 'name',

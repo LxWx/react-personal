@@ -7,11 +7,13 @@ import sagas from './models/sagas';
 module.exports = {
     routeList: [{
         path: '/schedules',
-        comp: views
+        comp: views,
+        isBundle: true
     },
     {
         path: '/schedulesAdd',
-        comp: Add
+        comp: Add,
+        isBundle: true
     }],
     menuList: [{
         name: 'Schedules',

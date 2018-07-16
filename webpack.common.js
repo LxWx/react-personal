@@ -86,7 +86,6 @@ module.exports = {
         // HappyPack优化
         new HappyPack({
             id: 'jsx',
-            cache: true,
             threadPool: HappyThreadPool,
             loaders: ['babel-loader']
         }),

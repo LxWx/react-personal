@@ -6,7 +6,8 @@ import sagas from './models/sagas';
 module.exports = {
     routeList: [{
         path: '/queryLog',
-        comp: views
+        comp: views,
+        isBundle: true
     }],
     menuList: [{
         name: 'Query Log',

@@ -6,7 +6,8 @@ import sagas from './models/sagas';
 module.exports = {
     routeList: [{
         path: '/charts',
-        comp: views
+        comp: views,
+        isBundle: true
     }],
     menuList: [{
         name: 'My Charts',
