@@ -4,6 +4,7 @@ import { Transfer, Form, Input, Button, Checkbox, Select,Row, Col, Radio, DatePi
 import { connect } from 'react-redux';
 import styles from './index.less';
 import update from 'immutability-helper';
+import * as Act from '../models/actions';
 const FormItem = Form.Item;
 const RadioGroup = Radio.Group;
 const CheckboxGroup = Checkbox.Group;
@@ -54,6 +55,10 @@ class Arrays extends PureComponent {
         };
     }
     componentDidMount = () => {
+        const {dispatch} = this.props;
+        dispatch(Act.getSearchCache({tagName: 'ProductId'}));
+        dispatch(Act.getSearchCache({tagName: 'ProductId'}));
+        dispatch(Act.getSearchCache({tagName: 'ProductId'}));
         const newArr = this.setScreen(options);
         this.setState({
             screenArr: newArr,
@@ -102,9 +107,6 @@ class Arrays extends PureComponent {
             return;
         }
     }
-    bindChange = () => {
-
-    }
     transferChange = (targetKeys, direction, moveKeys) => {
         const { transfer, newScreenArr } = this.state;
         let newScreen = update({}, { $set: newScreenArr });
@@ -147,7 +149,6 @@ class Arrays extends PureComponent {
         this.setState({ mockData, targetKeys });
     }
     inputFocus = (n, e) => {
-        console.log(e.target.offsetTop);
         const { newScreenArr } = this.state;
         this.setState({
             transferShow: true,
@@ -214,6 +215,7 @@ class Arrays extends PureComponent {
     render() {
         const { getFieldDecorator } = this.props.form;
         const { dataType, method } = this.props.newData;
+        console.log(this.props.newData, 'this.props.newData');
         const { textValue, textArr, columnOptions, confirmFlag, dataTypeValue, newScreenArr, transfer, transferShow, columShow, columValue, top, confirmValue, timeArr, dayArr, fixedTimeFlag, fixedTimeValue, fixedDayValue} = this.state;
         const formItemLayout = {
             labelCol: {

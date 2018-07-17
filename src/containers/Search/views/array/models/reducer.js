@@ -1,7 +1,5 @@
-import {combineReducers} from 'redux';
-import {CloneDeep} from 'common';
-import * as Act from './actions';
 
+import { handleActions } from 'redux-actions';
 let initState = {
     dataType: [
         {
@@ -34,17 +32,14 @@ let initState = {
             name: '指定Lot查询',
             value: 3
         }
-    ]
+    ],
+    screenData: {
+    }
 
 };
 
-export default function nav1Reducer(state = initState, action) {
-    let newState = CloneDeep(state);
-    switch (action.type) {
-    case Act.ADDNUM:
-        newState = Object.assign({}, state, {age: action.data});
-        return newState;
-    default:
-        return state;
+export const newState = handleActions({
+    'setSearchCache'(state, action) {
+        return { ...state, screenData: {...state.screenData, ...action.payload}};
     }
-}
+}, initState);

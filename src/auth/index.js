@@ -40,7 +40,7 @@ const userIsAuthenticatedDefaults = {
 export const userIsAuthenticatedRedir = connectedRouterRedirect({
     ...userIsAuthenticatedDefaults,
     redirectPath: '/login',
-    allowRedirectBack: false
+    allowRedirectBack: true
 });
 
 // export const userIsAdminRedir = connectedRouterRedirect({

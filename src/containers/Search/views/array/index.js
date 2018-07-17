@@ -1,13 +1,13 @@
-import views from './views/index';
+import views from 'bundle-loader?lazy!./views/index';
 import * as action from './models/actions';
-import reducer from './models/reducer';
+import {newState} from './models/reducer';
 import sagas from './models/sagas';
 
 module.exports = {
     routeList: [{
         path: '/array',
         comp: views,
-        isBundle: false
+        isBundle: true
     }],
     menuList: [{
         name: 'Array',
@@ -18,7 +18,7 @@ module.exports = {
     models: [{
         action,
         reducer: {
-            array: reducer
+            array: newState
         },
         sagas
     }]

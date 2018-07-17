@@ -16,7 +16,7 @@ class QueryLog extends PureComponent {
             cordinateVisible: false,
             traceVisible: false,
             statisticsVisible: false,
-            screenVisible: true
+            screenVisible: false
         };
     }
     cordinateCancel = () => {
@@ -46,7 +46,17 @@ class QueryLog extends PureComponent {
     }
     statisticseOk = () => {
         this.setState({
-            statisticsVisible: true
+            statisticsVisible: false
+        });
+    }
+    screenCancel = () => {
+        this.setState({
+            screenVisible: false
+        });
+    }
+    screenOk = () => {
+        this.setState({
+            screenVisible: false
         });
     }
     render() {
@@ -75,7 +85,11 @@ class QueryLog extends PureComponent {
                                 statisticsVisible: true
                             });
                         }} type="primary">统计分析</Button>
-                        <Button type="primary">筛选</Button>
+                        <Button onClick={() => {
+                            this.setState({
+                                screenVisible: true
+                            });
+                        }} type="primary">筛选</Button>
                         <Button type="primary">下载</Button>
                     </div>
                 </div>
@@ -97,6 +111,8 @@ class QueryLog extends PureComponent {
                 />
                 <ScreenModals 
                     visible={this.state.screenVisible}
+                    onCancel={this.screenCancel}
+                    onOk={this.screenOk}
                 />
             </div>
         );

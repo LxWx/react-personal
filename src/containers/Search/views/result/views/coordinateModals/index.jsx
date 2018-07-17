@@ -20,7 +20,6 @@ class CoordinateModals extends PureComponent {
     render() {
         const {visible} = this.props;
         const { getFieldDecorator } = this.props.form;
-        console.log(this.state.arr, this.state.arrs);
         return (
             <Modal
                 visible={visible}

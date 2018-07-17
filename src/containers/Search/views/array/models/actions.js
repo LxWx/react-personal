@@ -1,8 +1,21 @@
-export const ADDNUM = 'addNum';
+import {
+    createAction,
+} from 'redux-actions';
 
-export function addNumAct(data) {
-    return {
-        type: ADDNUM,
-        data
-    };
-}
+export const setSearchCache = createAction('setSearchCache');
+export const getSearchCache = createAction('getSearchCache');
+
+export const setSearchOwnerTemplate = createAction('setSearchOwnerTemplate');
+export const getSearchOwnerTemplate = createAction('getSearchOwnerTemplate');
+
+export const setSearchQueryFields = createAction('setSearchQueryFields');
+export const getSearchQueryFields = createAction('getSearchQueryFields');
+
+export const setSubmitQueryTask = createAction('setSubmitQueryTask');
+export const getSubmitQueryTask = createAction('getSubmitQueryTask');
+
+export const setSearchByRunId = createAction('setSearchByRunId');
+export const getSearchByRunId = createAction('getSearchByRunId');
+
+export const setSearchQueryTask = createAction('setSearchQueryTask');
+export const getSearchQueryTask = createAction('getSearchQueryTask');

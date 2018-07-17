@@ -1,14 +1,10 @@
 import axios from 'axios';
 import {CloneDeep, getStorage} from 'common';
 import pathToRegexp from 'path-to-regexp';
-import {Loading} from 'components';
-
-let loadingInstance = 0;
-let getLoadingInstance = () => {
-    loadingInstance = Loading.newInstance();
-    return loadingInstance;
-};
-
+import {
+    showFullScreenLoading,
+    tryHideFullScreenLoading,
+} from './loading';
 const encodeParam = (data = {}) => {
     let formBody = [];
     for (let property in data) {
@@ -19,8 +15,34 @@ const encodeParam = (data = {}) => {
     return formBody.join('&');
 };
 
+const $ = axios.create({
+    timeout: 15000
+});
+
+// 请求拦截器
+$.interceptors.request.use((config) => {
+    if (config.showLoading) {
+        showFullScreenLoading();
+    }
+    return config;
+}, (error) => {
+    return Promise.reject(error);
+});
+
+// 响应拦截器
+$.interceptors.response.use((response) => {
+    if (response.config.showLoading) {
+        tryHideFullScreenLoading();
+    }
+    return response;
+}, (error) => {
+    tryHideFullScreenLoading();
+    return Promise.reject(error);
+});
+
+const defaultConfig = { showLoading: true };
+
 const fetch = (options) => {
-    getLoadingInstance();
     let {
         method = 'get',
         data,
@@ -43,10 +65,6 @@ const fetch = (options) => {
         }
         url = domin + url;
     } catch (e) {
-        if (loadingInstance) {
-            loadingInstance.destroy();
-            loadingInstance = null;
-        }
         console.log(e.message);
     }
     axios.defaults.headers.common.Authorization = '';
@@ -58,19 +76,21 @@ const fetch = (options) => {
     }
     switch (method.toLowerCase()) {
     case 'get':
-        return axios.get(url, {
-            params: cloneData
+        return $.get(url, {
+            params: cloneData,
+            ...defaultConfig
         });
     case 'delete':
-        return axios.delete(url, {
-            data: cloneData
+        return $.delete(url, {
+            data: cloneData,
+            ...defaultConfig
         });
     case 'post':
-        return axios.post(url, cloneData);
+        return $.post(url, {...cloneData, ...defaultConfig});
     case 'put':
-        return axios.put(url, cloneData);
+        return $.put(url, {...cloneData, ...defaultConfig});
     case 'patch':
-        return axios.patch(url, cloneData);
+        return $.patch(url, {...cloneData, ...defaultConfig});
     default:
         return axios(options);
     }
@@ -79,27 +99,22 @@ const fetch = (options) => {
 export default function request(options) {
     return fetch(options)
         .then((response) => {
-            console.log(response);
             const {
                 statusText,
                 status
             } = response;
             let jsonResult = response.jsonResult;
             let data = response.data;
-            if (loadingInstance) {
-                loadingInstance.destroy();
-                loadingInstance = null;
-            }
             return {
                 success: true,
                 message: statusText,
                 statusCode: status,
-                jsonResult,
-                data,
-                ...jsonResult
+                ...jsonResult,
+                ...data
             };
         })
         .catch((error) => {
+            
             const {response} = error;
             let msg;
             let statusCode;
@@ -110,10 +125,6 @@ export default function request(options) {
                 } = response;
                 statusCode = response.status;
                 msg = response.message || statusText;
-            }
-            if (loadingInstance) {
-                loadingInstance.destroy();
-                loadingInstance = null;
             }
             return {
                 success: false,

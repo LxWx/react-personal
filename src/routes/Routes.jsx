@@ -28,11 +28,7 @@ class Routes extends Component {
         }
     }
     getComponent(n, c) {
-        if (n == true) {
-            return Bundle.create(c);
-        } else {
-            return c;
-        }
+        return n && Bundle.create(c) || c;
     }
     render() {
         return (

@@ -1,20 +1,20 @@
-// import {takeEvery} from 'redux-saga/effects';
-// import * as Act from './actions';
-// import * as fetch from '../api';
-// import {callFetch} from 'common';
+import {put, call, takeEvery} from 'redux-saga/effects';
+import * as Act from './actions';
+import * as fetch from '../api';
 
+function* getSearchCache() {
+    yield takeEvery(Act.getSearchCache, _getSearchCache);
+}
 
-// function* fetchUser() {
-//     yield takeEvery(Act.ADDNUM, _fetchUser);
-// }
+function* _getSearchCache(action) {
+    let res = yield call(fetch.searchCache, action.payload);
+    yield put(Act.setSearchCache({
+        [action.payload.tagName]: res.data
+    }));
+}
 
-// function* _fetchUser(action) {
-//     let res = yield callFetch(fetch.addNum, {});
-//     console.log(res);
-// }
-
-// export default function* root() {
-//     yield [
-//         fetchUser()
-//     ];
-// }
+export default function* root() {
+    yield [
+        getSearchCache()
+    ];
+}
