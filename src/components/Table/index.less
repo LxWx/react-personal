@@ -1,3 +1,11 @@
+.queryContent {
+    margin-bottom: 20px;    
+    :global {
+        table {
+            table-layout: fixed;
+        }
+    }
+}
 .title {
     height: 32px;
     line-height: 32px;
@@ -7,4 +15,25 @@
     .btn {
         margin-top: 4px;
     }
+}
+.labels {
+    width: 80px;
+    float: left;
+    text-align: right;
+}
+.value {
+    width: calc(~"100% - 80px");
+    float: right;
+    padding-left: 20px;
+}
+.colNew {
+    position: relative;
+    top: 12px;
+}
+.colNew1 {
+    position: relative;
+    top: 20px;
+    padding-right: 20px;
+    text-align: right;
+    right: 16px;
 }

@@ -1,4 +1,20 @@
 @import '~resources/style/common.less';
-.aa {
-    color: green;  
+.main {
+    .btnMain {
+        display: flex;
+        align-items: center;
+        button {
+            margin-right: 10px;
+        }
+    }
+    .labels {
+        width: 80px;
+        float: left;
+        text-align: right;
+    }
+    .value {
+        width: calc(~"100% - 80px");
+        float: right;
+        padding-left: 20px;
+    }
 }

@@ -17,6 +17,15 @@ export async function searchOwnerTemplate(data) {
     });
 }
 
+export async function searchById(data) {
+    return request({
+        url: api.searchById,
+        method: 'get',
+        data: data
+    });
+}
+
+
 export async function searchQueryFields(data) {
     return request({
         url: api.searchQueryFields,

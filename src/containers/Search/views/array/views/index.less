@@ -36,8 +36,6 @@
         line-height: 40px;
     }
     .screenTitle {
-        width: 90px;
-        padding-left: 12px;
     }
     .transfer,
     .transferFixed{
@@ -49,16 +47,18 @@
         height: 330px;
         padding-top: 50px;
     }
-    .labels {
-        width: 80px;
-        float: left;
-        text-align: right;
+    .fromItem {
+        display: flex;
+        width: 100%;
+        .labels {
+            text-align: right;
+        }
+        .value {
+            padding-left: 20px;
+            flex-grow: 1;
+        }
     }
-    .value {
-        width: calc(~"100% - 80px");
-        float: right;
-        padding-left: 20px;
-    }
+    
     .columTitle {
         padding-left: 3px;
         .labels {

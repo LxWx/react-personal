@@ -2,11 +2,16 @@ import {createStore, applyMiddleware} from 'redux';
 import createSagaMiddleware from 'redux-saga';
 import reduces from '../models/reducer';
 import rootSaga from '../models/sagas/index';
-
+import logger from 'redux-logger';
 const sagaMiddleware = createSagaMiddleware(rootSaga);
+let middleware = [sagaMiddleware];
+if (PRODUCTION) {
+    middleware.push(logger);
+}
+
 const store = createStore(
     reduces,
-    applyMiddleware(sagaMiddleware)
+    applyMiddleware(...middleware)
 );
 
 if (module.hot) {

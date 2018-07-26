@@ -16,7 +16,7 @@ const encodeParam = (data = {}) => {
 };
 
 const $ = axios.create({
-    timeout: 15000
+    timeout: 3000
 });
 
 // 请求拦截器
@@ -82,7 +82,7 @@ const fetch = (options) => {
         });
     case 'delete':
         return $.delete(url, {
-            data: cloneData,
+            params: cloneData,
             ...defaultConfig
         });
     case 'post':
@@ -114,7 +114,7 @@ export default function request(options) {
             };
         })
         .catch((error) => {
-            
+
             const {response} = error;
             let msg;
             let statusCode;

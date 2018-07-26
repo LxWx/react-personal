@@ -13,6 +13,13 @@
                 "libraryName": "antd",
                 "style": true
             }
+        ],
+        [
+            "react-intl",
+            {
+                "messagesDir": "./src/i18n-messages"
+            }
+
         ]
     ]
 }

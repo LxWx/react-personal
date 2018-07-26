@@ -10,7 +10,7 @@ module.exports = {
         isBundle: true
     }],
     menuList: [{
-        name: 'Query Log',
+        name: 'QueryLog',
         key: '/queryLog',
         iconFont: '',
         isMenu: true,

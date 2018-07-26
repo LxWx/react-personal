@@ -16,12 +16,11 @@ function endLoading() {
 }
 
 const tryCloseLoading = () => {
-    if (needLoadingRequestCount === 0) {
-        endLoading();
-    }
+    endLoading();
 };
 
 export function showFullScreenLoading() {
+    console.log('show');
     if (needLoadingRequestCount === 0) {
         startLoading();
     }

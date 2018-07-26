@@ -79,9 +79,9 @@ module.exports = {
         // 通过模块调用次数给模块分配ids，常用的ids就会分配更短的id，使ids可预测，减小文件大小，推荐使用
         new webpack.optimize.OccurrenceOrderPlugin(),
         //定义全局变量
-        // new webpack.DefinePlugin({
-        //     'process.env.NODE_ENV': JSON.stringify('production')
-        // }),
+        new webpack.DefinePlugin({
+            PRODUCTION: JSON.stringify(false)
+        }),
 
         // 压缩
         new webpack.optimize.UglifyJsPlugin({

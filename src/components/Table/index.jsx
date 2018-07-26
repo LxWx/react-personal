@@ -1,14 +1,34 @@
 import React, {PureComponent} from 'react';
 import PropTypes from 'prop-types';
-import {Table, Button} from 'antd';
+import {Table, Button, Form, Select, Input, Row, Col} from 'antd';
 import styles from './index.less';
-
+const FormItem = Form.Item;
+@Form.create()
 class Tables extends PureComponent {
     constructor(props) {
         super(props);
     }
+    allTo = () => {
+        this.props.allTo();
+    }
+    submit = () => {
+        const {dispatch, dataType} = this.props;
+        console.log(dataType, 'dataType');
+        this.props.form.validateFieldsAndScroll((err, values) => {
+            if (!err) {
+                console.log(values, 'values');
+                dispatch(dataType({
+                    data: {
+                        ownerCode: '1001',
+                        size: 5
+                    }
+                }));
+            }
+        });
+    }
     render() {
-        const {columns, data, title, all, showHeader} = this.props;
+        const {columns, data, title, all, showHeader, showQuery} = this.props;
+        const { getFieldDecorator } = this.props.form;
         return (
             <div className={styles.queryContent}>
                 {
@@ -16,14 +36,73 @@ class Tables extends PureComponent {
                         <span className={'left'}>
                             {title}
                         </span>
-                        {all && <Button className={styles.btn + ' right'} size="small" type="primary">查看全部</Button> || null}
+                        {all && <Button onClick={this.allTo} className={styles.btn + ' right'} size="small" type="primary">查看全部</Button> || null}
                     </div>
+                }
+                {
+                    showQuery && <Form>
+                        <Row gutter={20}>
+                            <Col className={styles.colNew} span={6}>
+                                <FormItem
+                                >
+                                    <div className={styles.labels}>
+                                    科室：
+                                    </div>
+                                    <div className={styles.value}>
+                                        {getFieldDecorator('department', {
+                                            rules: []
+                                        })(
+                                            <Select>
+                                            </Select>
+                                        )}
+                                    </div>
+
+                                </FormItem>
+                            </Col>
+                            <Col className={styles.colNew} span={6}>
+                                <FormItem
+                                >
+                                    <div className={styles.labels}>
+                                    工号：
+                                    </div>
+                                    <div className={styles.value}>
+                                        {getFieldDecorator('number', {
+                                            rules: []
+                                        })(
+                                            <Input />
+                                        )}
+                                    </div>
+
+                                </FormItem>
+                            </Col>
+                            <Col className={styles.colNew} span={6}>
+                                <FormItem
+                                >
+                                    <div className={styles.labels}>
+                                    工号：
+                                    </div>
+                                    <div className={styles.value}>
+                                        {getFieldDecorator('keyword', {
+                                            rules: []
+                                        })(
+                                            <Input />
+                                        )}
+                                    </div>
+
+                                </FormItem>
+                            </Col>
+                            <Col className={styles.colNew1} span={6}>
+                                <Button onClick={this.submit} className={styles.btn} size="small" type="primary">查找</Button>
+                            </Col>
+                        </Row>
+                    </Form> || null
                 }
                 <Table
                     columns={columns}
                     dataSource={data}
                     bordered
                     showHeader={showHeader}
+                    pagination={false}
                 />
             </div>
         );
@@ -33,6 +112,12 @@ class Tables extends PureComponent {
 Tables.propTypes = {
     columns: PropTypes.array,
     title: PropTypes.string,
+    showHeader: PropTypes.bool,
+    data: PropTypes.array,
+    all: PropTypes.bool,
+    showQuery: PropTypes.bool,
+    dispatch: PropTypes.func,
+    dataType: PropTypes.func
 };
 Tables.defaultProps = {
     title: '11111',
@@ -58,22 +143,14 @@ Tables.defaultProps = {
             </span>
         ),
     }],
-    data: [{
-        key: '1',
-        name: 'John Brown',
-        age: 32,
-        address: 'New York No. 1 Lake Park',
-    }, {
-        key: '2',
-        name: 'Jim Green',
-        age: 42,
-        address: 'London No. 1 Lake Park',
-    }, {
-        key: '3',
-        name: 'Joe Black',
-        age: 32,
-        address: 'Sidney No. 1 Lake Park',
-    }],
-    all: true
+    data: [],
+    all: true,
+    showQuery: false,
+    dispatch: () => {
+
+    },
+    dataType: () => {
+
+    }
 };
 export default Tables;

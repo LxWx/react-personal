@@ -10,7 +10,7 @@ module.exports = {
         isBundle: true
     },],
     menuList: [{
-        name: 'Query Templates',
+        name: 'Templates',
         key: '/templates',
         iconFont: '',
         isMenu: true,

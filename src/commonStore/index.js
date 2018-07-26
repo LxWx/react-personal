@@ -1,8 +1,8 @@
-import StoreRedux from './storeRedux/reducer';
+import {storeRedux} from './storeRedux/reducer';
 import {loginState} from './login/reducer';
 // 公共reducer
 let reducer = {
-    commonStore: StoreRedux,
+    commonStore: storeRedux,
     login: loginState
 };
 export default reducer;

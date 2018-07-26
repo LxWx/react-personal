@@ -3,43 +3,75 @@ import { handleActions } from 'redux-actions';
 let initState = {
     dataType: [
         {
-            name: '制程历史',
-            value: 1
+            name: 'MES History',
+            value: 'ARRAY_MAIN'
         },
         {
-            name: '检测数据',
-            value: 2
+            name: 'Defect Data',
+            value: 'ARRAY_DEFECT'
         },
         {
-            name: '量测数据',
-            value: 3
+            name: 'Measurement Data',
+            value: 'ARRAY_MEASUREMENT'
         },
         {
-            name: '工程数据',
-            value: 4
+            name: 'PDS Data',
+            value: 'ARRAY_EDC'
         }
     ],
     method: [
         {
-            name: '时间范围查询',
-            value: 1
+            name: 'Time Range',
+            value: 'time'
         },
         {
-            name: '指定Glass查询',
-            value: 2
+            name: 'Given GlassID',
+            value: 'glassIds'
         },
         {
-            name: '指定Lot查询',
-            value: 3
+            name: 'Given LotID',
+            value: 'lotIds'
         }
     ],
     screenData: {
-    }
-
+    },
+    template: null,
+    searchQueryFields: null,
+    detail: null
+    // {
+    //     ownerCode:'1001',
+    //     templateId:'1001',
+    //     templateName:'查询ARRAY',
+    //     items: {
+    //         productGroups: 'AD01,AD02',
+    //         productIds: '1,2',
+    //         ownerCodes: '1,2',
+    //         EQPTypes: '1,2',
+    //         ProcessIds: '1,2',
+    //         EQPIds: '1,2',
+    //         queryFields:'a,b,c',
+    //         startTime: '',
+    //         endTime: '',
+    //         glassIds: '',
+    //         lotIds: '',
+    //         nowTime: '',
+    //         timeInterval: ''
+    //     },
+    // }
 };
 
 export const newState = handleActions({
     'setSearchCache'(state, action) {
         return { ...state, screenData: {...state.screenData, ...action.payload}};
+    },
+    'setSearchOwnerTemplate'(state, action) {
+        return { ...state, template: action.payload.data};
+    },
+    'setSearchQueryFields'(state, action) {
+        return { ...state, searchQueryFields: action.payload.data};
+    },
+    'setSearchById'(state, action) {
+        return { ...state, detail: action.payload.data};
     }
+
 }, initState);

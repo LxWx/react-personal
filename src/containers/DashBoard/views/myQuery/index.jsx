@@ -11,23 +11,30 @@ class MyQuery extends PureComponent {
     constructor(props) {
         super(props);
     }
+    search = (val) => {
+        console.log(val);
+        this.props.search(val);
+    }
     render() {
+        const {data} = this.props;
         return (
             <div className={styles.queryContent}>
                 <div className={styles.title}>
-                    共享的查询
+                最近查询
                 </div>
                 <div className={styles.search}>
                     <Search
                         placeholder="input search text"
-                        onSearch={value => console.log(value)}
+                        onSearch={this.search}
                         enterButton
                     />
                 </div>
                 <div>
-                    <Query />
-                    <Query />
-                    <Query />
+                    {
+                        Array.isArray(data) && data.map(it => {
+                            return <Query item={it}/>;
+                        })
+                    }
                 </div>
             </div>
         );

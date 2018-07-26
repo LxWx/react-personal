@@ -38,11 +38,12 @@ class ToolTipText extends PureComponent {
         let style = {
             width: width
         };
+        let newText = (text == '' || !text) && '暂无数据' || text;
         return (
-            <div ref={id} className={`${isShow && styles.over || ''}`} style={style}>
+            <div ref={id} className={`${isShow && styles.over || styles.over1}`} style={style}>
                 {
-                    isShow && <Tooltip arrowPointAtCenter title={(<div className={styles.break}>{text}</div>)}><div>{text}</div></Tooltip> || <div>
-                        {text}
+                    isShow && <Tooltip arrowPointAtCenter title={(<div className={styles.break}>{newText}</div>)}><div className={styles.over}>{newText}</div></Tooltip> || <div>
+                        {newText}
                     </div>
                 }
 
@@ -52,10 +53,14 @@ class ToolTipText extends PureComponent {
 }
 
 ToolTipText.propTypes = {
-    
+    text: PropTypes.string,
+    width: PropTypes.oneOfType([
+        PropTypes.string,
+        PropTypes.number
+    ])
 };
 ToolTipText.defaultProps = {
-    text: '1',
+    text: '',
     width: '100%'
 };
 export default ToolTipText;

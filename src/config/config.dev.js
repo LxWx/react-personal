@@ -15,7 +15,7 @@ module.exports = {
                 changeOrigin: true
             },
             '/api/*': {
-                target: 'http://192.168.54.106:8080/csot-eda-web',
+                target: 'http://192.168.54.108:8080/csot-eda-web',
                 secure: true,
                 changeOrigin: true
             }

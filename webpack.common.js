@@ -99,13 +99,11 @@ module.exports = {
         // new OpenBrowserPlugin({ url: `http://localhost:${config.proxy.port}` }), // 自动启动网页
 
         //定义全局变量
-        // new webpack.DefinePlugin({
-        //     'process.env': {
-        //         NODE_ENV: JSON.stringify(process.env.NODE_ENV)
-        //     },
-        //     PRODUCTION: JSON.stringify(PRODUCTION),
-        //     APP_CONFIG: JSON.stringify(appConfig[process.env.NODE_ENV]),
-        // }),
+        new webpack.DefinePlugin({
+            PRODUCTION: JSON.stringify(true)
+            // PRODUCTION: JSON.stringify(PRODUCTION),
+            // APP_CONFIG: JSON.stringify(appConfig[process.env.NODE_ENV]),
+        }),
 
         new CopyWebpackPlugin([
             {

@@ -2,4 +2,4 @@ import {
     createAction,
 } from 'redux-actions';
 
-export const changeLoading = createAction('changeLoading');
+export const changeLocales = createAction('changeLocales');

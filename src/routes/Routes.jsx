@@ -10,14 +10,25 @@ import { connect } from 'react-redux';
 import { NoMatch } from 'components';
 import * as Auth from 'auth';
 import * as Act from 'commonStore/login/actions';
-import zhCN from 'antd/lib/locale-provider/zh_CN';
+import * as Acts from 'commonStore/storeRedux/actions';
 import { LocaleProvider } from 'antd';
+import antdEn from 'antd/lib/locale-provider/en_US';
+import loacalDataEn from 'react-intl/locale-data/en';
+import loacalDataZh from 'react-intl/locale-data/zh';
+import enMessages from '../locales/en.json';
+import antdZh from 'antd/lib/locale-provider/zh_CN';
+import zhMessages from '../locales/zh.json';
+import { addLocaleData, IntlProvider } from 'react-intl';
+import intl from 'intl';
 @connect((state, props) => ({
     user: state.login
 }))
 class Routes extends Component {
     constructor(props) {
         super(props);
+        this.state = {
+            locales: false
+        };
     }
     componentDidMount() {
         const {user} = this.props;
@@ -30,26 +41,56 @@ class Routes extends Component {
     getComponent(n, c) {
         return n && Bundle.create(c) || c;
     }
+    show = (v) => {
+        if (this.state.locales != v) {
+            this.setState({
+                locales: v
+            });
+            this.props.dispatch(Acts.changeLocales(v));
+        }
+    }
     render() {
+        let appLocale = null;
+        if (this.state.locales) {
+            appLocale = {
+                messages: {
+                    ...zhMessages,
+                },
+                antd: antdZh,
+                locale: 'zh-Hans-CN',
+                data: loacalDataZh,
+            };
+        } else {
+            appLocale = {
+                messages: {
+                    ...enMessages,
+                },
+                antd: antdEn,
+                locale: 'en-US',
+                data: loacalDataEn,
+            };
+        }
+        addLocaleData(appLocale.data);
         return (
-            <LocaleProvider locale={zhCN}>
-                <Router history={webHistory}>
-                    <Switch>
-                        <Route path='/login' component={withRouter(Bundle.create(Login))} />
-                        <Route path='/' exact component={withRouter(Bundle.create(Login))} />
-                        <Main user={this.props.user}>
-                            <Switch>
-                                {
-                                    config.routeList.map((item, i) => {
-                                        return <Route key={i} path={item.path} component={Auth.userIsAuthenticatedRedir(this.getComponent(item.isBundle, item.comp))} />;
-                                    })
-                                }
-                                <Route component={Auth.userIsAuthenticatedRedir(NoMatch)} />
-                            </Switch>
-                        </Main>
-                    </Switch>
-                </Router>
-
+            <LocaleProvider locale={appLocale.antd}>
+                <IntlProvider locale={appLocale.locale} messages={appLocale.messages}>
+                    <Router history={webHistory}>
+                        <Switch>
+                            <Route path='/login' component={withRouter(Bundle.create(Login))} />
+                            <Route path='/' exact component={withRouter(Bundle.create(Login))} />
+                            <Main show={this.show} user={this.props.user}>
+                                <Switch>
+                                    {
+                                        config.routeList.map((item, i) => {
+                                            return <Route key={i} path={item.path} component={Auth.userIsAuthenticatedRedir(this.getComponent(item.isBundle, item.comp))} />;
+                                        })
+                                    }
+                                    <Route component={Auth.userIsAuthenticatedRedir(NoMatch)} />
+                                </Switch>
+                            </Main>
+                        </Switch>
+                    </Router>
+                </IntlProvider>
             </LocaleProvider>
 
         );

@@ -46,7 +46,7 @@ class Loading extends PureComponent {
 }
 
 Loading.propTypes = {
-
+    loading: PropTypes.bool,
 };
 Loading.defaultProps = {
     loading: true
@@ -60,8 +60,9 @@ Loading.newInstance = function newNotificationInstance(properties) {
     let notification = ReactDOM.render(React.createElement(Loading, properties), div);
     return {
         destroy() {
-            ReactDOM.unmountComponentAtNode(div);
-            document.getElementById('main').removeChild(div);
+            let newDiv = document.querySelector('.newDiv');
+            ReactDOM.unmountComponentAtNode(newDiv);
+            document.getElementById('main').removeChild(newDiv);
         },
     };
 };

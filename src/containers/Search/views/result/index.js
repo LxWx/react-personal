@@ -13,7 +13,8 @@ module.exports = {
         name: 'Result',
         key: '/result',
         iconFont: '',
-        isMenu: true,
+        isMenu: false,
+        pid: '/array'
     }],
     models: [{
         action,

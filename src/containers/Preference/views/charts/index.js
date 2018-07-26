@@ -10,7 +10,7 @@ module.exports = {
         isBundle: true
     }],
     menuList: [{
-        name: 'My Charts',
+        name: 'Charts',
         key: '/charts',
         iconFont: '',
         isMenu: true,

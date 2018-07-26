@@ -11,7 +11,9 @@ export const getSearchOwnerTemplate = createAction('getSearchOwnerTemplate');
 export const setSearchQueryFields = createAction('setSearchQueryFields');
 export const getSearchQueryFields = createAction('getSearchQueryFields');
 
-export const setSubmitQueryTask = createAction('setSubmitQueryTask');
+export const setSearchById = createAction('setSearchById');
+export const getSearchById = createAction('getSearchById');
+
 export const getSubmitQueryTask = createAction('getSubmitQueryTask');
 
 export const setSearchByRunId = createAction('setSearchByRunId');
