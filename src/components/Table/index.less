@@ -16,16 +16,18 @@
         margin-top: 4px;
     }
 }
-.labels {
-    width: 80px;
-    float: left;
-    text-align: right;
+.formItem {
+    display: flex;
+    width: 100%;
+    .labels {
+        text-align: right;
+    }
+    .value {
+        padding-left: 20px;
+        flex-grow: 1;
+    }
 }
-.value {
-    width: calc(~"100% - 80px");
-    float: right;
-    padding-left: 20px;
-}
+
 .colNew {
     position: relative;
     top: 12px;

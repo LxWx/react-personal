@@ -131,17 +131,20 @@ class Arrays extends PureComponent {
             let obj = {};
             let filterCondition = {};
             const confirm = values['confirm'];
-            if (values.timeType == 2) {
-                if (nowTime == '' || timeInterval == '') {
-                    message.error('请正确选择时间范围');
-                    return;
-                }
-            } else {
-                if (!values['time'] || values['time'].length == 0) {
-                    message.error('请正确选择时间范围');
-                    return;
+            if (confirm == 'time') {
+                if (values.timeType == 2) {
+                    if (nowTime == '' || timeInterval == '') {
+                        message.error('请正确选择时间范围');
+                        return;
+                    }
+                } else {
+                    if (!values['time'] || values['time'].length == 0) {
+                        message.error('请正确选择时间范围');
+                        return;
+                    }
                 }
             }
+
             if (!err) {
                 obj.queryTopic = values.dataType;
                 obj.taskName = this.state.textValue;
@@ -169,7 +172,7 @@ class Arrays extends PureComponent {
                 obj.filterCondition = filterCondition;
                 this.props.dispatch(Act.getSubmitQueryTask({data: obj, callback: (v) => {
                     if (v.statusCode == 0) {
-                        webHistory.push('dashBoard');
+                        webHistory.push(`/result?runId=${v.data.runId}&status=new`);
                     } else {
                         message.error('服务异常');
                     }
@@ -339,7 +342,9 @@ class Arrays extends PureComponent {
         });
     }
     typeGroupChange = (v) => {
-        this.getTask(v.target.value);
+        if (this.state.columShow) {
+            this.getTask(v.target.value);
+        }
         if (v.target.value != this.state.queryTopic) {
             this.setState({
                 columnOptions: update(this.state.columnOptions, {$set: this.props.locales && [{ label: '同一站点过多次只显示最后一次', value: 'one' }] || [{ label: 'Only the last data if glass passed the process multiple times', value: 'one' }]})
@@ -362,7 +367,7 @@ class Arrays extends PureComponent {
 
                         <FormattedMessage id='New Query'/>
                     </span>
-                    <Button onClick={this.handleSubmit} className={styles.btn + ' right'} size="small" type="primary">提交</Button>
+                    <Button onClick={this.handleSubmit} className={styles.btn + ' right'} size="small" type="primary"><FormattedMessage id='Commit'/></Button>
                 </div>
                 <Form className={styles.formMain}>
                     <Row>
@@ -408,7 +413,7 @@ class Arrays extends PureComponent {
                             >
                                 <div className={styles.fromItem}>
                                     <div className={styles.labels}>
-                                        <FormattedMessage id='Qeury By'/>:
+                                        <FormattedMessage id='Query By'/>:
                                     </div>
                                     <div className={styles.value}>
                                         {getFieldDecorator('confirm', {
@@ -522,7 +527,8 @@ class Arrays extends PureComponent {
                     <Row>
 
                         <Col className={styles.screenTitle}>
-                            筛选条件：
+                            <FormattedMessage id="Screening conditions"/>
+
                         </Col>
                     </Row>
                     <Row>

@@ -1,20 +1,11 @@
-import {combineReducers} from 'redux';
-import {CloneDeep} from 'common';
-import * as Act from './actions';
+import { handleActions } from 'redux-actions';
 
 let initState = {
-    name: 'scy',
-    age: '18'
-
+    resultData: []
 };
 
-export default function nav1Reducer(state = initState, action) {
-    let newState = CloneDeep(state);
-    switch (action.type) {
-    case Act.ADDNUM:
-        newState = Object.assign({}, state, {age: action.data});
-        return newState;
-    default:
-        return state;
-    }
-}
+export const newState = handleActions({
+    'setSearchQueryTaskResult'(state, action) {
+        return { ...state, resultData: action.payload.data};
+    },
+}, initState);

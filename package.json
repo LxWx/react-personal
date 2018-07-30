@@ -9,7 +9,7 @@
         "not ie <= 8"
     ],
     "scripts": {
-        "start": "webpack-dev-server --progress --hot --colors --inline --config webpack.dev.js",
+        "start": "webpack-dev-server --progress --hot --colors --inline --config webpack.dev.js --host 192.168.54.136",
         "watch": "webpack --watch",
         "test": "echo \"Error: no test specified\" && exit 1",
         "build": "npm run vendors && webpack --config webpack.prod.js",
@@ -31,6 +31,7 @@
         "lodash": "^4.17.4",
         "moment": "^2.22.2",
         "prop-types": "^15.6.2",
+        "query-string": "^6.1.0",
         "react": "^16.2.0",
         "react-autobind": "^1.0.6",
         "react-dom": "^16.2.0",

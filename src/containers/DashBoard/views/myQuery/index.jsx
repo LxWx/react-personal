@@ -5,6 +5,7 @@ import { Table, Button } from 'antd';
 import styles from './index.less';
 import Query from './query';
 import { Input } from 'antd';
+import { FormattedMessage } from 'react-intl';
 const Search = Input.Search;
 
 class MyQuery extends PureComponent {
@@ -20,7 +21,7 @@ class MyQuery extends PureComponent {
         return (
             <div className={styles.queryContent}>
                 <div className={styles.title}>
-                最近查询
+                    <FormattedMessage id="Recent query"/>
                 </div>
                 <div className={styles.search}>
                     <Search

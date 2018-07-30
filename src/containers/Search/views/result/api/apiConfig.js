@@ -1,5 +1,5 @@
 module.exports = {
     api: {
-        getList: '/mock/local/data'
+        searchQueryTaskResult: '/api/queryTask/searchQueryTaskResult',  // 查看 
     }
 };

@@ -16,7 +16,7 @@ const encodeParam = (data = {}) => {
 };
 
 const $ = axios.create({
-    timeout: 3000
+    timeout: 15000
 });
 
 // 请求拦截器
@@ -48,7 +48,7 @@ const fetch = (options) => {
         data,
         url
     } = options;
-    data.user = getStorage('user') || '';
+    data.ownerCode = getStorage('ownerCode') || '1001';
     const cloneData = CloneDeep(data);
     try {
         let domin = '';

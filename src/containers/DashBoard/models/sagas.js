@@ -35,16 +35,6 @@ function* _getSearchQueryTaskInstanceByPage(action) {
     }));
 }
 
-// 我的查询查看
-function* searchQueryTaskResult() {
-    yield takeEvery(Act.searchQueryTaskResult, _searchQueryTaskResult);
-}
-
-function* _searchQueryTaskResult(action) {
-    let res = yield call(fetch.searchQueryTaskResult, action.payload.data);
-    action.payload.callback && action.payload.callback(res);
-}
-
 // 删除- 我的模板
 function* deleteTemplate() {
     yield takeEvery(Act.deleteTemplate, _deleteTemplate);
@@ -133,7 +123,7 @@ function* _submitTimedQueryTaskByTemplateId(action) {
     action.payload.callback && action.payload.callback(res);
 }
 
-// 我的模板-执行 
+// 我的模板-执行
 function* submitQueryTaskByTemplateId() {
     yield takeEvery(Act.submitQueryTaskByTemplateId, _submitQueryTaskByTemplateId);
 }
@@ -179,7 +169,6 @@ export default function* root() {
         getSearchTimedQueryTaskByPage(),
         getSearchTimedQueryTask(),
         deleteTemplate(),
-        searchQueryTaskResult(),
         getSearchQueryTaskInstanceByPage(),
         getSearchLatestQueryTaskInstance(),
     ];

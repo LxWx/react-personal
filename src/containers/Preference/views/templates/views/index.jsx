@@ -14,7 +14,7 @@ class Templates extends PureComponent {
         return (
             <div className={styles.main}>
                 <Tables
-                    title='我的模板'
+                    title='My template'
                     columns={columns1}
                     data={data1}
                     all={false}

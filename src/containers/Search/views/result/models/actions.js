@@ -1,8 +1,6 @@
-export const ADDNUM = 'addNum';
+import {
+    createAction,
+} from 'redux-actions';
 
-export function addNumAct(data) {
-    return {
-        type: ADDNUM,
-        data
-    };
-}
+export const searchQueryTaskResult = createAction('searchQueryTaskResult'); // 我的查询查看
+export const setSearchQueryTaskResult = createAction('setSearchQueryTaskResult'); // 我的查询查看

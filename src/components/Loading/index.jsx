@@ -60,9 +60,13 @@ Loading.newInstance = function newNotificationInstance(properties) {
     let notification = ReactDOM.render(React.createElement(Loading, properties), div);
     return {
         destroy() {
-            let newDiv = document.querySelector('.newDiv');
-            ReactDOM.unmountComponentAtNode(newDiv);
-            document.getElementById('main').removeChild(newDiv);
+            try {
+                let newDiv = document.querySelector('.newDiv');
+                ReactDOM.unmountComponentAtNode(newDiv);
+                document.getElementById('main').removeChild(newDiv);
+            } catch (error) {
+                console.log(error);
+            }
         },
     };
 };

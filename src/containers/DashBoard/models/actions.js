@@ -10,8 +10,6 @@ export const setSearchQueryTaskInstanceByPage = createAction('setSearchQueryTask
 
 export const saveQueryTaskInstanceToTemplate = createAction('saveQueryTaskInstanceToTemplate'); // 模板化
 
-export const searchQueryTaskResult = createAction('searchQueryTaskResult'); // 我的查询查看
-
 export const deleteTemplate = createAction('deleteTemplate'); // 删除- 我的模板
 
 export const getSearchTimedQueryTask = createAction('getSearchTimedQueryTask'); // 获取我的定时任务

@@ -1,10 +1,12 @@
 import {request} from 'utils/index';
 import {api} from './apiConfig';
 
-export async function addNum() {
+
+// 我的查询- 查看
+export async function searchQueryTaskResult(data) {
     return request({
-        url: api.getList,
-        method: 'post',
-        data: {}
-    })
+        url: api.searchQueryTaskResult,
+        method: 'get',
+        data: data
+    });
 }

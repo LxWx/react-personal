@@ -20,6 +20,9 @@ import antdZh from 'antd/lib/locale-provider/zh_CN';
 import zhMessages from '../locales/zh.json';
 import { addLocaleData, IntlProvider } from 'react-intl';
 import intl from 'intl';
+// if (!window.Intl) {
+//     require('intl');
+// }
 @connect((state, props) => ({
     user: state.login
 }))
@@ -27,15 +30,15 @@ class Routes extends Component {
     constructor(props) {
         super(props);
         this.state = {
-            locales: false
+            locales: true
         };
     }
     componentDidMount() {
         const {user} = this.props;
         // 登录跳转
-        if (user.user) {
+        if (user.ownerCode) {
             const {dispatch} = this.props;
-            dispatch(Act.userLoggedIn(user.user));
+            dispatch(Act.userLoggedIn(user.ownerCode));
         }
     }
     getComponent(n, c) {

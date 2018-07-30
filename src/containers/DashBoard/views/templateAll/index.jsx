@@ -67,7 +67,7 @@ class Home extends PureComponent {
             <Row gutter={20}>
                 <Col span={24}>
                     <Tables
-                        title='我的查询模板'
+                        title='My Module'
                         columns={
                             [{
                                 title: 'runId',
@@ -124,7 +124,7 @@ class Home extends PureComponent {
                 </Col>
                 <Col span={24}>
                     <Tables
-                        title='共享的查询模板'
+                        title='Shared query template'
                         columns={
                             [{
                                 title: 'runId',

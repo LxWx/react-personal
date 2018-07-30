@@ -1,14 +1,19 @@
 import React from 'react';
 import { connect } from 'react-redux';
-// import * as Act from '../../models/actions';
+import * as Act from '../models/actions';
 import styles from './index.less';
-import { PureComponent, Charts, Tables} from 'components';
-import { Button } from 'antd';
+import { PureComponent, Loading} from 'components';
+import { Button, Table, message} from 'antd';
 import CordinateModals from './coordinateModals';
 import TraceModals from './traceModals';
 import StatisticsModals from './statisticsModals';
 import ScreenModals from './screenModals';
+import WebSocketClient from 'utils/WebSocketClient';
+import queryString from 'query-string';
 
+@connect((state, props) => ({
+    newData: state.result
+}))
 class QueryLog extends PureComponent {
     constructor(props) {
         super(props);
@@ -19,6 +24,83 @@ class QueryLog extends PureComponent {
             screenVisible: false
         };
     }
+    startLoading = () => {
+        this.loading = Loading.newInstance();
+        return this.loading;
+    }
+    endLoading = () => {
+        this.loading.destroy();
+    }
+    componentDidMount() {
+        this.startLoading();
+        const {runId, status} = queryString.parse(this.props.location.search);
+        if (status && status == 'new') {
+            this.ws = new WebSocketClient('ws://192.168.54.36:8080/csot-eda-web/socket/text');
+            this.ws.connect(() => {
+                this.ws.emit('register', {
+                    runId: runId
+                });
+            });
+            this.ws.onMessage = (msg) => {
+                let newMsg = JSON.parse(msg);
+                console.log(newMsg, 'newMsg------newMsg');
+                if (newMsg && newMsg.runState == 'FAILED') {
+                    this.endLoading();
+                    this.loading = null;
+                    message.error('查询异常');
+                    return;
+                } else {
+                    if (newMsg && newMsg.runId) {
+                        this.props.dispatch(Act.searchQueryTaskResult({
+                            data: {
+                                pageNum: 1,
+                                pageSize: 10,
+                                runId: newMsg.runId
+                            },
+                            callback: (res) => {
+                                console.log(res, 'res');
+                                if (res.statusCode == 0) {
+                                    this.endLoading();
+                                }
+                            }
+                        }));
+                    }
+                }
+
+            };
+        } else {
+            this.props.dispatch(Act.searchQueryTaskResult({
+                data: {
+                    pageNum: 1,
+                    pageSize: 10,
+                    runId: runId
+                },
+                callback: (res) => {
+                    console.log(res, 'res');
+                    if (res.statusCode == 0) {
+                        this.endLoading();
+                    } else {
+                        message.error('系统错误');
+                        this.endLoading();
+                    }
+                    this.loading = null;
+                }
+            }));
+        }
+
+
+    }
+    componentWillUnmount() {
+        const {runId, status} = queryString.parse(this.props.location.search);
+        if (status && status == 'new') {
+            this.ws.close();
+        }
+        if (this.loading ) {
+            this.endLoading();
+        }
+    }
+
+
     cordinateCancel = () => {
         this.setState({
             cordinateVisible: false
@@ -59,8 +141,31 @@ class QueryLog extends PureComponent {
             screenVisible: false
         });
     }
+    changeData = (data) => {
+        if (!data) {
+            return {};
+        }
+        let {header=[], body=[], pageNum=1, pageSize= 10, total=0} = data;
+        let newHeader = [];
+        header.forEach(it => {
+            newHeader.push({
+                title: it,
+                dataIndex: it,
+                key: it
+            });
+        });
+        body.map((it, key) => {
+            it.rowKey = key;
+            return it;
+        });
+        data.newHeader = newHeader;
+        return data;
+    }
     render() {
         const {columns, data} = this.props;
+        const {resultData} = this.props.newData;
+        let newResultData = this.changeData(resultData);
+        let {newHeader=[], body=[], pageNum=1, pageSize= 10, total=0} = newResultData;
         return (
             <div className={styles.main}>
                 <div className={styles.titleGroup}>
@@ -93,23 +198,23 @@ class QueryLog extends PureComponent {
                         <Button type="primary">下载</Button>
                     </div>
                 </div>
-                <Tables title={false} showHeader={true} columns={columns} data={data}/>
+                <Table rowKey={record => record.rowKey} bordered showHeader={true} columns={newHeader} dataSource={body}/>
                 <CordinateModals
                     visible={this.state.cordinateVisible}
                     onCancel={this.cordinateCancel}
                     onOk={this.cordinateOk}
                 />
-                <TraceModals 
+                <TraceModals
                     visible={this.state.traceVisible}
                     onCancel={this.traceCancel}
                     onOk={this.traceeOk}
                 />
-                <StatisticsModals 
+                <StatisticsModals
                     visible={this.state.statisticsVisible}
                     onCancel={this.statisticsCancel}
                     onOk={this.statisticseOk}
                 />
-                <ScreenModals 
+                <ScreenModals
                     visible={this.state.screenVisible}
                     onCancel={this.screenCancel}
                     onOk={this.screenOk}
@@ -190,10 +295,4 @@ QueryLog.defaultProps = {
     }],
 };
 
-const mapStateToProps = (state) => {
-    return {
-        newData: state.DashBoard
-    };
-};
-
-export default connect(mapStateToProps)(QueryLog);
+export default QueryLog;

@@ -109,7 +109,7 @@ class Main extends PureComponent {
                         <FormattedMessage id={'Report an issue'}/>
                     </Button>
                     <div className={styles.user}>
-                        {this.props.user.user || ''}
+                        {this.props.user.ownerCode || ''}
                     </div>
 
                 </Header>
@@ -127,7 +127,7 @@ class Main extends PureComponent {
 
     componentWillMount() {
         const { user } = this.props;
-        if (!user.user) {
+        if (!user.ownerCode) {
             return;
         }
         this.setState({
@@ -140,7 +140,7 @@ class Main extends PureComponent {
 
     componentDidMount() {
         const { user } = this.props;
-        if (!user.user) {
+        if (!user.ownerCode) {
             return;
         }
         webHistory.listen((location, action) => {
@@ -179,9 +179,10 @@ class Main extends PureComponent {
 
     setSelectAndOpenKeys = (location) => {
         const { user } = this.props;
-        if (!user.user) {
+        if (!user.ownerCode) {
             return;
         }
+        console.log(location, 'location');
         let { urlKeys } = this.state;
         let keyObj = urlKeys[location.pathname == '/' ? '/dashBoard' : location.pathname] || null;
         this.setState({
@@ -192,7 +193,6 @@ class Main extends PureComponent {
 
     //点击导航栏
     handleClick = (e) => {
-        this.props.show();
         this.setState({
             selectedKeys: [e.key]
         });

@@ -25,7 +25,7 @@
     "Measurement Data": "量测数据",
     "PDS Data": "工程数据",
     "Query Descriptioin": "查询描述",
-    "Qeury By": "查询方式",
+    "Query By": "查询方式",
     "Time Range": "时间范围查询",
     "Given GlassID": "指定Glass查询",
     "Given LotID": "指定Lot查询",
@@ -45,5 +45,15 @@
     "Save": "收藏",
     "Commit": "提交",
     "Chinese": "中文",
-    "English": "英文"
+    "English": "英文",
+    "Screening conditions": "筛选条件",
+    "Department": "科室",
+    "Work number": "工号",
+    "Keyword": "关键字",
+    "Shared query records": "共享的查询记录",
+    "Shared timing query": "共享的定时查询",
+    "Shared query template": "共享的查询模板",
+    "lookup": "查找",
+    "Recent query": "最近查询",
+    "My template": "我的模板"
 }

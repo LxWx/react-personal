@@ -22,6 +22,7 @@ class WebSocketClient {
     //连接
 
     connect(onOpen) {
+        console.log('-------开始连接');
         if (this.connected) {
             return; // 如果连接成功，退出连接
         }
@@ -60,6 +61,8 @@ class WebSocketClient {
         };
 
         this.socket.onmessage = (e) => { // 实例对象的onmessage属性，用于指定收到服务器数据后的回调函数。
+            console.log(e, 'e--------e-------e');
+            console.log(this.onMessage, 'this.onMessage');
             if (this.onMessage) { // 监听成功回调
                 this.onMessage(e.data);
             }
@@ -67,12 +70,12 @@ class WebSocketClient {
     }
 
 
-    emit(event, data = {}, sendNow = false) { // 存储发送数据
-        data.event = event;
+    emit(eventType, data = {}, sendNow = false) { // 存储发送数据
+        data.eventType = eventType;
 
-        if (event == 'join') {
-            data.room = this.room;
-        }
+        // if (eventType == 'join') {
+        //     data.room = this.room;
+        // }
         data = JSON.stringify(data);
 
         if (this.msgQueue.length > this.maxMess) {

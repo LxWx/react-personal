@@ -4,15 +4,21 @@ import * as Act from '../models/actions';
 import styles from './index.less';
 import { PureComponent, ToolTipText, Tables } from 'components';
 import MyQuery from './myQuery';
-import { Row, Col, Button, message, Modal, Form, Checkbox, Select, Input} from 'antd';
+import { Row, Col, Button, message, Modal, Form, Checkbox, Select, Input, Radio, TimePicker} from 'antd';
 import {webHistory} from 'utils';
-import WebSocketClient from 'utils/WebSocketClient';
+import { FormattedMessage } from 'react-intl';
+import moment from 'moment';
 // import update from 'immutability-helper';
 // import PropTypes from 'prop-types';
-const FormItem = Form.Item;
 const CheckboxGroup = Checkbox.Group;
-@Form.create()
-
+const initState = {
+    radio1: false,
+    radio2: false,
+    radio3: false,
+    dayValue: null,
+    monthValue: null,
+    timePickerValue: undefined,
+};
 @connect((state, props) => ({
     newData: state.dashBoard
 }))
@@ -20,25 +26,75 @@ class Home extends PureComponent {
     constructor(props) {
         super(props);
         this.state = {
-            modalShow: false
+            modalShow: false,
+            radio1: true,
+            radio2: false,
+            radio3: false,
+            monthArr: [1,2,3,4,5,6,7,8,9,10,11,12],
+            dayOfWeekArr: [1,2,3,4,5,6,7],
+            dayValue: 1,
+            monthValue: 1,
+            timePickerValue: undefined,
+            templateId: '',
+            ownerCode: ''
         };
+    }
+    clearState = () => {
+        this.setState({
+            ...initState
+        });
+    }
+    onOk = () => {
+        const time = moment(this.state.timePickerValue);
+        if (!this.state.timePickerValue) {
+            message.error('请选择开始执行时间');
+            return;
+        }
+        let param = {
+            templateId: this.state.templateId,
+            ownerCode: this.state.ownerCode,
+            seconds: time.second(),
+            minutes: time.minute(),
+            hours: time.hour()
+        };
+        if (this.state.radio1) {
+            param.month = this.state.monthValue;
+        }
+        if (this.state.radio2) {
+            param.dayOfWeek = this.state.dayValue;
+        }
+        this.props.dispatch(Act.submitTimedQueryTaskByTemplateId({
+            data: param,
+            callback: (res) => {
+                if (res.statusCode == 0) {
+                    this.setState({
+                        modalShow: false
+                    });
+                    this.clearState();
+                } else {
+                    message.error('系统错误');
+                }
+            }
+        }));
+
+    }
+    onCancel = () => {
+        this.setState({
+            modalShow: false
+        });
+        this.clearState();
     }
     componentDidMount() {
         this.query();
         this.queryTask();
         this.queryTemplate();
-        // this.ws = new WebSocketClient('ws://192.168.54.108:8080/csot-eda-web/socket/text');
-        // this.ws.connect(() => {
-        //     this.ws.emit('', {
-        //         page: '',
-        //         search: '',
-        //         pageId: '',
-        //         control: false
-        //     });
-        // });
-        // this.ws.onMessage = (msg) => {
-        //     console.log(msg, 'msg');
-        // };
+
+    }
+
+    selectChange = (v, a) => {
+        this.setState({
+            [v]: a
+        });
     }
     lates = (text) => {
         const {dispatch} = this.props;
@@ -56,9 +112,10 @@ class Home extends PureComponent {
         dispatch(Act.saveQueryTaskInstanceToTemplate({
             data: {
                 ownerCode: data.ownerCode || '1001',
-                runId: 'cc3db074d566432fac2e1aacb1e0d5e1'
+                runId: data.runId || 'cc3db074d566432fac2e1aacb1e0d5e1'
             },
             callback: (data) => {
+                console.log(data, 'data');
                 if (data.statusCode != 0) {
                     message.error('服务异常');
                 } else {
@@ -127,15 +184,15 @@ class Home extends PureComponent {
             }
         }));
     }
-    templateDelete = () => {
+    templateDelete = (v) => {
         const {dispatch} = this.props;
-        dispatch(Act.deleteQueryTask({
+        dispatch(Act.deleteTemplate({
             data: {
                 templateId: v.templateId
             },
             callback: (res) => {
                 if (res.statusCode == 0) {
-                    this.queryTask();
+                    this.template();
                 } else {
                     message.error('服务异常,废弃失败');
                 }
@@ -166,26 +223,35 @@ class Home extends PureComponent {
     templateAllTo = () => {
         webHistory.push('/templateAll');
     }
-    onCancel = () => {
-
-    }
-    onOk = () => {
-
-    }
     typeGroupChange = () => {
 
     }
-    onChangeBox = () => {
-
+    timePickerChange = (time, timeString) => {
+        this.setState({
+            timePickerValue: time
+        });
+    }
+    onChangeBox = (e) => {
+        const arr = ['radio1', 'radio2', 'radio3'];
+        arr.forEach(it => {
+            if (it == e) {
+                this.setState({
+                    [it]: true
+                });
+            } else {
+                this.setState({
+                    [it]: false
+                });
+            }
+        });
     }
     render() {
         const {myQuery, myTask, myTemplate, latelyData} = this.props.newData;
-        const { getFieldDecorator } = this.props.form;
         return <div className={styles.main}>
             <Row gutter={20}>
                 <Col span={16}>
                     <Tables
-                        title='我的查询'
+                        title='My Query'
                         columns={
                             [{
                                 title: 'runId',
@@ -240,7 +306,7 @@ class Home extends PureComponent {
                         allTo={this.queryAllTo}
                     />
                     <Tables
-                        title='我的查询模板'
+                        title='My Module'
                         columns={
                             [{
                                 title: 'templateId',
@@ -265,7 +331,13 @@ class Home extends PureComponent {
                                 render: (text, record, index) => {
                                     return (
                                         <div className={styles.btnMain}>
-                                            <Button>
+                                            <Button onClick={() => {
+                                                this.setState({
+                                                    modalShow: true,
+                                                    templateId: record.templateId,
+                                                    ownerCode: record.ownerCode
+                                                });
+                                            }} >
                                                     定时
                                             </Button>
                                             <Button onClick={this.templateSubmit.bind(this, record)}>
@@ -286,7 +358,7 @@ class Home extends PureComponent {
                         allTo={this.templateAllTo}
                     />
                     <Tables
-                        title='我的定时任务'
+                        title='MY Schedule'
                         columns={
                             [{
                                 title: 'taskId',
@@ -330,7 +402,7 @@ class Home extends PureComponent {
                     />
                 </Col>
                 <Col span={8}>
-                    <MyQuery 
+                    <MyQuery
                         search={this.lates}
                         data={latelyData}
                     />
@@ -345,22 +417,34 @@ class Home extends PureComponent {
                 <Row style={{marginBottom: 20}} gutter={20}>
                     <Col className='center-32' span={8}>
                         <Col span={8}>
-                            <Checkbox onChange={this.onChangeBox.bind(this, 1)}>每月：</Checkbox>
+                            <Radio checked={this.state.radio1} onChange={this.onChangeBox.bind(this, 'radio1')}>每月：</Radio>
                         </Col>
                         <Col span={16}>
-                            <Select style={{width: '100%'}}></Select>
+                            <Select value={this.state.monthValue} onChange={this.selectChange.bind(this, 'monthValue')} style={{width: '100%'}}>
+                                {
+                                    this.state.monthArr.map(it => {
+                                        return <Option value={it}>{it}</Option >;
+                                    })
+                                }
+                            </Select>
                         </Col>
                     </Col>
                     <Col className='center-32' span={8}>
                         <Col span={8}>
-                            <Checkbox onChange={this.onChangeBox.bind(this, 2)}>每月：</Checkbox>
+                            <Radio checked={this.state.radio2} onChange={this.onChangeBox.bind(this, 'radio2')}>每周：</Radio>
                         </Col>
                         <Col span={16}>
-                            <Select style={{width: '100%'}}></Select>
+                            <Select value={this.state.dayValue} onChange={this.selectChange.bind(this, 'dayValue')} style={{width: '100%'}}>
+                                {
+                                    this.state.dayOfWeekArr.map(it => {
+                                        return <Option value={it}>{it}</Option >;
+                                    })
+                                }
+                            </Select>
                         </Col>
                     </Col>
                     <Col className='center-32' span={8}>
-                        <Checkbox onChange={this.onChangeBox.bind(this, 3)}>每月：</Checkbox>
+                        <Radio checked={this.state.radio3} onChange={this.onChangeBox.bind(this, 'radio3')}>每日</Radio>
                     </Col>
                 </Row>
                 <Row className='center-32'>
@@ -368,7 +452,7 @@ class Home extends PureComponent {
                         开始执行时间：
                     </Col>
                     <Col span={4}>
-                        <Input />
+                        <TimePicker value={this.state.timePickerValue} onChange={this.timePickerChange}/>
                     </Col>
                 </Row>
 

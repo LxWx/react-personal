@@ -67,7 +67,7 @@ class Home extends PureComponent {
             <Row gutter={20}>
                 <Col span={24}>
                     <Tables
-                        title='我的定时查询'
+                        title='MY Schedule'
                         columns={
                             [{
                                 title: 'runId',
@@ -124,7 +124,7 @@ class Home extends PureComponent {
                 </Col>
                 <Col span={24}>
                     <Tables
-                        title='共享的定时查询'
+                        title='Shared timing query'
                         columns={
                             [{
                                 title: 'runId',

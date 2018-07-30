@@ -25,7 +25,7 @@
     "Measurement Data": "Measurement Data",
     "PDS Data": "PDS Data",
     "Query Descriptioin": "Query Descriptioin",
-    "Qeury By": "Qeury By",
+    "Query By": "Query By",
     "Time Range": "Time Range",
     "Given GlassID": "Given GlassID",
     "Given LotID": "Given LotID",
@@ -45,5 +45,15 @@
     "Save": "Save",
     "Commit": "Commit",
     "Chinese": "Chinese",
-    "English": "English"
+    "English": "English",
+    "Screening conditions": "Screening conditions",
+    "Department": "Department",
+    "Work number": "Work number",
+    "Keyword": "Keyword",
+    "Shared query records": "Shared query records",
+    "Shared timing query": "Shared timing query",
+    "Shared query template": "Shared query template",
+    "lookup": "lookup",
+    "Recent query": "Recent query",
+    "My template": "My template"
 }

@@ -2,6 +2,7 @@ import React, {PureComponent} from 'react';
 import PropTypes from 'prop-types';
 import {Table, Button, Form, Select, Input, Row, Col} from 'antd';
 import styles from './index.less';
+import { FormattedMessage } from 'react-intl';
 const FormItem = Form.Item;
 @Form.create()
 class Tables extends PureComponent {
@@ -34,9 +35,9 @@ class Tables extends PureComponent {
                 {
                     title && <div className={styles.title + ' clearfix'}>
                         <span className={'left'}>
-                            {title}
+                            <FormattedMessage id={title}/>
                         </span>
-                        {all && <Button onClick={this.allTo} className={styles.btn + ' right'} size="small" type="primary">查看全部</Button> || null}
+                        {all && data.length > 0 && <Button onClick={this.allTo} className={styles.btn + ' right'} size="small" type="primary"><FormattedMessage id={'Show All'}/></Button> || null}
                     </div>
                 }
                 {
@@ -45,16 +46,37 @@ class Tables extends PureComponent {
                             <Col className={styles.colNew} span={6}>
                                 <FormItem
                                 >
-                                    <div className={styles.labels}>
-                                    科室：
+                                    <div className={styles.formItem}>
+                                        <div className={styles.labels}>
+                                            <FormattedMessage id={'Department'}/>：
+                                        </div>
+                                        <div className={styles.value}>
+                                            {getFieldDecorator('department', {
+                                                rules: []
+                                            })(
+                                                <Select>
+                                                </Select>
+                                            )}
+                                        </div>
                                     </div>
-                                    <div className={styles.value}>
-                                        {getFieldDecorator('department', {
-                                            rules: []
-                                        })(
-                                            <Select>
-                                            </Select>
-                                        )}
+
+
+                                </FormItem>
+                            </Col>
+                            <Col className={styles.colNew} span={6}>
+                                <FormItem
+                                >
+                                    <div className={styles.formItem}>
+                                        <div className={styles.labels}>
+                                            <FormattedMessage id={'Work number'}/>：
+                                        </div>
+                                        <div className={styles.value}>
+                                            {getFieldDecorator('number', {
+                                                rules: []
+                                            })(
+                                                <Input />
+                                            )}
+                                        </div>
                                     </div>
 
                                 </FormItem>
@@ -62,37 +84,24 @@ class Tables extends PureComponent {
                             <Col className={styles.colNew} span={6}>
                                 <FormItem
                                 >
-                                    <div className={styles.labels}>
-                                    工号：
-                                    </div>
-                                    <div className={styles.value}>
-                                        {getFieldDecorator('number', {
-                                            rules: []
-                                        })(
-                                            <Input />
-                                        )}
+                                    <div className={styles.formItem}>
+                                        <div className={styles.labels}>
+                                            <FormattedMessage id={'Keyword'}/>：
+                                        </div>
+                                        <div className={styles.value}>
+                                            {getFieldDecorator('keyword', {
+                                                rules: []
+                                            })(
+                                                <Input />
+                                            )}
+                                        </div>
                                     </div>
 
-                                </FormItem>
-                            </Col>
-                            <Col className={styles.colNew} span={6}>
-                                <FormItem
-                                >
-                                    <div className={styles.labels}>
-                                    工号：
-                                    </div>
-                                    <div className={styles.value}>
-                                        {getFieldDecorator('keyword', {
-                                            rules: []
-                                        })(
-                                            <Input />
-                                        )}
-                                    </div>
 
                                 </FormItem>
                             </Col>
                             <Col className={styles.colNew1} span={6}>
-                                <Button onClick={this.submit} className={styles.btn} size="small" type="primary">查找</Button>
+                                <Button onClick={this.submit} className={styles.btn} size="small" type="primary"><FormattedMessage id={'lookup'}/></Button>
                             </Col>
                         </Row>
                     </Form> || null
@@ -144,8 +153,8 @@ Tables.defaultProps = {
         ),
     }],
     data: [],
-    all: true,
     showQuery: false,
+    all: true,
     dispatch: () => {
 
     },

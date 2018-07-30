@@ -1,6 +1,6 @@
 import views from 'bundle-loader?lazy!./views/index';
 import * as action from './models/actions';
-import reducer from './models/reducer';
+import {newState} from './models/reducer';
 import sagas from './models/sagas';
 
 module.exports = {
@@ -19,7 +19,7 @@ module.exports = {
     models: [{
         action,
         reducer: {
-            queryLog: reducer
+            result: newState
         },
         sagas
     }]

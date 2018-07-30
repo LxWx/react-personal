@@ -26,15 +26,6 @@ export async function saveQueryTaskInstanceToTemplate(data) {
     });
 }
 
-// 我的查询- 查看
-export async function searchQueryTaskResult(data) {
-    return request({
-        url: api.searchQueryTaskResult,
-        method: 'get',
-        data: data
-    });
-}
-
 // 删除- 我的模板
 export async function deleteTemplate(data) {
     return request({
@@ -102,7 +93,7 @@ export async function searchQueryTemplateByPage(data) {
 export async function submitTimedQueryTaskByTemplateId(data) {
     return request({
         url: api.submitTimedQueryTaskByTemplateId,
-        method: 'get',
+        method: 'post',
         data: data
     });
 }
